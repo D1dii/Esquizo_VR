@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
 {
     public Transform playerTransform;
 
+    public Camera camera;
+
     public XRGrabInteractable interactable;
 
     public InputActionReference cameraShotAction;
@@ -53,6 +55,23 @@ public class CameraController : MonoBehaviour
         if (interactable.isSelected)
         {
             Debug.Log("Camera Shot Taken!");
+
+            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.CompareTag("Anomaly"))
+                {
+                    Debug.Log("Anomaly detected!");
+                }
+                else
+                {
+                    Debug.Log($"Raycast hit: {hit.collider.name} at position {hit.point}");
+                }
+            }
+            else
+            {
+                Debug.Log("Raycast did not hit anything.");
+            }
         }
     }
 }
