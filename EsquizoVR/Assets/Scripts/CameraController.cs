@@ -58,8 +58,29 @@ public class CameraController : MonoBehaviour
 
     public static string ScreenShotName(int width, int height)
     {
-        return string.Format("{0}/Screenshots/screenshot_{1}x{2}_{3}.png",
-            Application.dataPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+        switch(LevelManager.instance.levelIndex)
+        {
+            case 1:
+                return string.Format("{0}/Screenshots/Level_1/screenshot_{1}x{2}_{3}.png",
+                Application.dataPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+            case 2:
+                return string.Format("{0}/Screenshots/Level_2/screenshot_{1}x{2}_{3}.png",
+                Application.dataPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+            case 3:
+                return string.Format("{0}/Screenshots/Level_3/screenshot_{1}x{2}_{3}.png",
+                Application.dataPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+            case 4:
+                return string.Format("{0}/Screenshots/Level_4/screenshot_{1}x{2}_{3}.png",
+                Application.dataPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+            case 5:
+                return string.Format("{0}/Screenshots/Level_5/screenshot_{1}x{2}_{3}.png",
+                Application.dataPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+            default:
+                break;
+        }
+
+        return "No photo";
+        
     }
 
     public void TakeCameraShot()
