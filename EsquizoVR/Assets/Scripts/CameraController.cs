@@ -18,6 +18,8 @@ public class CameraController : MonoBehaviour
 
     public Camera cameraComponent;
 
+    public NotebookController notebookController;
+
     public void Awake()
     {
         cameraShotAction.action.Enable();
@@ -47,6 +49,7 @@ public class CameraController : MonoBehaviour
         }
 
         
+
     }
 
     public void FollowCharacterNotGrabbed()
@@ -87,16 +90,32 @@ public class CameraController : MonoBehaviour
         {
             RenderTexture renderTexture = new RenderTexture(resWidth, resHeight, 24);
             cameraComponent.targetTexture = renderTexture;
-            Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
+            Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGBA32, false);
             cameraComponent.Render();
             RenderTexture.active = renderTexture;
             screenShot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
+            screenShot.Apply(); // Aplica los cambios al Texture2D
             cameraComponent.targetTexture = null;
-            RenderTexture.active = null; // JC: added to avoid errors
+            RenderTexture.active = null;
             Destroy(renderTexture);
+
+            // Crear el objeto con el Sprite
+            GameObject cameraShot = new GameObject("CameraShot");
+            cameraShot.AddComponent<SpriteRenderer>();
+            Sprite sprite = Sprite.Create(screenShot, new Rect(0, 0, screenShot.width, screenShot.height), new Vector2(0.5f, 0.5f));
+            cameraShot.GetComponent<SpriteRenderer>().sprite = sprite;
+
+            // Configurar el SpriteRenderer
+            cameraShot.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+            // Agregar a la lista
+            notebookController.cameraShots.Add(cameraShot);
+
+            // Guardar el archivo
             byte[] bytes = screenShot.EncodeToPNG();
             string filePath = ScreenShotName(resWidth, resHeight);
             System.IO.File.WriteAllBytes(filePath, bytes);
+
             Debug.Log(string.Format("Took screenshot to: {0}", filePath));
             if(HasShotAnAnomaly())
             {

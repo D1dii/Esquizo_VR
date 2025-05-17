@@ -13445,7 +13445,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.469367e-39, y: 0, z: 0, w: -2.2168303e+32}
+  m_BoundingSphereOverride: {x: 8.11e-43, y: -6.06762e-40, z: 8.11e-43, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -15976,6 +15976,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 2779669268269126898}
   interactable: {fileID: 2142907331}
+  openNotebook: {fileID: 0}
+  cameraShots: []
   isNotebookOpen: 0
 --- !u!114 &2142907330
 MonoBehaviour:
@@ -18618,6 +18620,10 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 2779669268269126898}
+    - target: {fileID: 6577607583066520539, guid: 220fd0bc25675fc49a700fe93e767ed9, type: 3}
+      propertyPath: notebookController
+      value: 
+      objectReference: {fileID: 2142907329}
     - target: {fileID: 8282307738086165389, guid: 220fd0bc25675fc49a700fe93e767ed9, type: 3}
       propertyPath: m_Name
       value: CameraPhotos
