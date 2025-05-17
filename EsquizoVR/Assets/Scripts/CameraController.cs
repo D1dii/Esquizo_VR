@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
 
     public static string ScreenShotName(int width, int height)
     {
-        switch(LevelManager.instance.levelIndex)
+        switch(LevelManager.instance.CurrentLevelIndex)
         {
             case 1:
                 return string.Format("{0}/Screenshots/Level_1/screenshot_{1}x{2}_{3}.png",

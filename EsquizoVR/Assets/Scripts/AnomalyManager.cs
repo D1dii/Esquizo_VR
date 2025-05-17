@@ -1,45 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AnomalyManager : MonoBehaviour
 {
-    public List<IAnomaly> anomalies = new List<IAnomaly>();
-    public int anomalyCount = 0;
+    public List<Anomaly> anomalies = new ();
 
+    private List<Anomaly> activeAnomalies = new();
 
-    private List<IAnomaly> activeAnomalies = new List<IAnomaly>();
-
-
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnAnomalies(int numAnomalies)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SpawnAnomalies()
-    {
-        for (int i = 0; i < anomalies.Count; i++)
+        if (numAnomalies > anomalies.Count)
         {
-            var anomaly = Instantiate(anomalies[i] as MonoBehaviour).gameObject;
-            anomaly.transform.SetParent(this.transform);
-            anomaly.transform.position = anomalies[i].spawnPos.position;
+            Debug.LogError("Not enough unique anomalies to spawn");
+            return;
+        }
+
+        // 1. Clona y mezcla la lista
+        List<Anomaly> shuffled = new(anomalies);
+        Shuffle(shuffled);
+
+        // 2. Toma los primeros N
+        var selected = shuffled.Take(numAnomalies);
+
+        foreach (var anomalyPrefab in selected)
+        {
+            var instance = Instantiate(anomalyPrefab as MonoBehaviour).gameObject;
+            instance.transform.position = anomalyPrefab.SpawnPos;
+
+            Anomaly anomalyInstance = instance.GetComponent<Anomaly>();
+            activeAnomalies.Add(anomalyInstance);
+        }
+
+        InitAnomalies();
+    }
+
+    public void InitAnomalies()
+    {
+        foreach (var anomaly in activeAnomalies)
+        {
+            anomaly.InitAnomaly();
         }
     }
 
-    public void InitAnomaly()
+    // Fisher–Yates shuffle
+    private void Shuffle<T>(List<T> list)
     {
-        foreach (IAnomaly anomaly in anomalies)
+        for (int i = list.Count - 1; i > 0; i--)
         {
-            anomaly.OnAnomalyStart();
+            int rand = Random.Range(0, i + 1);
+            (list[i], list[rand]) = (list[rand], list[i]);
         }
     }
-
-
 }
