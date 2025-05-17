@@ -13445,7 +13445,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 8.11e-43, y: -6.06762e-40, z: 8.11e-43, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 3e-45, z: 1.481e-42, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -15976,7 +15976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 2779669268269126898}
   interactable: {fileID: 2142907331}
-  openNotebook: {fileID: 0}
+  openNotebook: {fileID: 3253434738044612790, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   cameraShots: []
   isNotebookOpen: 0
 --- !u!114 &2142907330
