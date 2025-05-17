@@ -120,8 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPos: {x: 2.705, y: 1.791, z: 2.65}
-  sceneClock: {fileID: 0}
-  audioSource: {fileID: 9153889147320396992}
 --- !u!82 &9153889147320396992
 AudioSource:
   m_ObjectHideFlags: 0
@@ -136,7 +134,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

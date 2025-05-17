@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AnomalyManager : MonoBehaviour
 {
-    public List<Anomaly> anomalies = new ();
+    public List<Anomaly> anomalies = new();
 
     private List<Anomaly> activeAnomalies = new();
 
@@ -17,11 +17,9 @@ public class AnomalyManager : MonoBehaviour
             return;
         }
 
-        // 1. Clona y mezcla la lista
         List<Anomaly> shuffled = new(anomalies);
         Shuffle(shuffled);
 
-        // 2. Toma los primeros N
         var selected = shuffled.Take(numAnomalies);
 
         foreach (var anomalyPrefab in selected)
@@ -43,8 +41,6 @@ public class AnomalyManager : MonoBehaviour
             anomaly.InitAnomaly();
         }
     }
-
-    // Fisher–Yates shuffle
     private void Shuffle<T>(List<T> list)
     {
         for (int i = list.Count - 1; i > 0; i--)

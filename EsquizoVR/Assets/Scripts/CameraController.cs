@@ -9,8 +9,6 @@ public class CameraController : MonoBehaviour
 {
     public Transform playerTransform;
 
-    public Camera camera;
-
     public XRGrabInteractable interactable;
 
     public InputActionReference cameraShotAction;
@@ -100,6 +98,30 @@ public class CameraController : MonoBehaviour
             string filePath = ScreenShotName(resWidth, resHeight);
             System.IO.File.WriteAllBytes(filePath, bytes);
             Debug.Log(string.Format("Took screenshot to: {0}", filePath));
+            if(HasShotAnAnomaly())
+            {
+                Debug.Log("Anomaly detected in the photo!");
+            }
+            else
+            {
+                Debug.Log("No anomalies detected in the photo.");
+            }
         }
+    }
+
+    //Funcion para comprobar si el raycast de la camara colisiona con una anomalia
+    //Esta funcion deberia almacenar ese dato en la informacion de la foto que se vera en el notebook 
+    public bool HasShotAnAnomaly()
+    {
+        Ray ray = new Ray(cameraComponent.transform.position, cameraComponent.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            var anomaly = hit.collider.GetComponent<Anomaly>();
+            if (anomaly != null)
+            {     
+                return true;
+            }      
+        }
+        return false;
     }
 }
