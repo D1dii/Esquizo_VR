@@ -17211,6 +17211,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5566844924872701910, guid: 7211891646177c74cbfe256241193eaf, type: 3}
+      propertyPath: nextPageAction
+      value: 
+      objectReference: {fileID: 6728344294928542788, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 5566844924872701910, guid: 7211891646177c74cbfe256241193eaf, type: 3}
+      propertyPath: prevPageAction
+      value: 
+      objectReference: {fileID: -2022782305691315078, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 5566844924872701910, guid: 7211891646177c74cbfe256241193eaf, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 2779669268269126898}
