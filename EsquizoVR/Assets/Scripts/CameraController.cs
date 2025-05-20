@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
 
     public NotebookController notebookController;
 
+    public GameObject photoPrefab;
+
     public void Awake()
     {
         cameraShotAction.action.Enable();
@@ -100,8 +102,7 @@ public class CameraController : MonoBehaviour
             Destroy(renderTexture);
 
             // Crear el objeto con el Sprite
-            GameObject cameraShot = new GameObject("CameraShot");
-            cameraShot.AddComponent<SpriteRenderer>();
+            var cameraShot = Instantiate(photoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             Sprite sprite = Sprite.Create(screenShot, new Rect(0, 0, screenShot.width, screenShot.height), new Vector2(0.5f, 0.5f));
             cameraShot.GetComponent<SpriteRenderer>().sprite = sprite;
 

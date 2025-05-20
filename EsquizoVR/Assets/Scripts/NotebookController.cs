@@ -30,17 +30,18 @@ public class NotebookController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         interactable = GetComponent<XRGrabInteractable>();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (!interactable.isSelected)
         {
             FollowCharacterNotGrabbed();
+            isNotebookOpen = false;
         }
 
         if (isNotebookOpen)
@@ -48,6 +49,7 @@ public class NotebookController : MonoBehaviour
             for (int i = 0; i < cameraShots.Count; i++)
             {
                 cameraShots[i].SetActive(true);
+                ArrangeCameraShotsInGrid();
             }
         }
         else
@@ -79,6 +81,7 @@ public class NotebookController : MonoBehaviour
                 // Logic to open the notebook
                 Debug.Log("Notebook opened");
             }
+
         }
         
     }
@@ -93,8 +96,10 @@ public class NotebookController : MonoBehaviour
     public void ArrangeCameraShotsInGrid()
     {
         int columns = 3; // Número de columnas
-        float spacing = 1.5f; // Espaciado entre los elementos
-        Vector3 startPosition = transform.position + new Vector3(-1.5f, 0, 1.5f); // Posición inicial de la cuadrícula
+        float spacing = 0.2f; // Espaciado entre los elementos
+        Vector3 startPosition = transform.position + new Vector3(-0.3f, 0.1f, 0); // Posición inicial de la cuadrícula
+
+        Quaternion extraRotation = Quaternion.Euler(90, 0, 0);
 
         for (int i = 0; i < cameraShots.Count; i++)
         {
@@ -106,7 +111,12 @@ public class NotebookController : MonoBehaviour
 
             // Mueve el objeto a la posición calculada
             cameraShots[i].transform.position = position;
+
+            // Asigna la rotación del cuaderno + 90 grados en Y
+            cameraShots[i].transform.rotation = transform.rotation * extraRotation;
         }
     }
+
+
 
 }
