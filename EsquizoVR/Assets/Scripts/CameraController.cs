@@ -155,14 +155,30 @@ public class CameraController : MonoBehaviour
     //Esta funcion deberia almacenar ese dato en la informacion de la foto que se vera en el notebook 
     public bool HasShotAnAnomaly()
     {
-        Ray ray = new Ray(cameraComponent.transform.position, cameraComponent.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+
+        Vector3[] directions = {
+           cameraComponent.transform.forward,
+           cameraComponent.transform.forward + cameraComponent.transform.right * 0.1f,
+           cameraComponent.transform.forward - cameraComponent.transform.right * 0.1f,
+           cameraComponent.transform.forward + cameraComponent.transform.up * 0.1f,
+           cameraComponent.transform.forward - cameraComponent.transform.up * 0.1f
+        };
+
+        foreach (var direction in directions)
         {
-            var anomaly = hit.collider.GetComponent<Anomaly>();
-            if (anomaly != null)
-            {     
-                return true;
-            }      
+            Ray ray = new Ray(cameraComponent.transform.position, direction.normalized);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                var anomaly = hit.collider.GetComponent<Anomaly>();
+                if (anomaly != null)
+                {
+                    float distance = Vector3.Distance(cameraComponent.transform.position, hit.point);
+                    if (distance <= 3.0f)
+                    {
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }
