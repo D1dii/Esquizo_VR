@@ -8,10 +8,14 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class CameraController : MonoBehaviour
 {
     public Transform playerTransform;
+    private Rigidbody rb;
 
     public XRGrabInteractable interactable;
 
     public InputActionReference cameraShotAction;
+
+    [SerializeField, Tooltip("Velocidad con la que la camara sigue al jugador")]
+    private float followSmoothness = 5f;
 
     public int resWidth = 1920;
     public int resHeight = 1080;
@@ -26,6 +30,7 @@ public class CameraController : MonoBehaviour
     {
         cameraShotAction.action.Enable();
         cameraShotAction.action.performed += ctx => TakeCameraShot();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void OnDestroy()
@@ -56,7 +61,24 @@ public class CameraController : MonoBehaviour
 
     public void FollowCharacterNotGrabbed()
     {
-        transform.position = new Vector3(playerTransform.position.x + 0.5f, transform.position.y, playerTransform.position.z - 0.5f);
+        if (playerTransform == null || rb == null) return;
+
+        Vector3 offset = playerTransform.right * + 0.2f + playerTransform.up * -0.3f + playerTransform.forward * 0.2f;
+        Vector3 targetPosition = playerTransform.position + offset;
+
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+
+        if (distanceToTarget > 0.1f)
+        {
+
+            if (!rb.isKinematic) rb.isKinematic = true;
+
+            Vector3 newPos = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSmoothness);
+            Quaternion newRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(playerTransform.forward), Time.deltaTime * followSmoothness);
+
+            transform.position = newPos;
+            transform.rotation = newRot;
+        }
     }
 
     public static string ScreenShotName(int width, int height)
