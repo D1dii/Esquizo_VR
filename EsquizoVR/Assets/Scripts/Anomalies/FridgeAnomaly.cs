@@ -8,6 +8,7 @@ public class FridgeAnomaly : Anomaly
     private Transform playerHead; 
     private Vector3 originalPosition;
     private bool isShaking = false;
+    public Animator animator;
 
     void Start()
     {
@@ -33,14 +34,14 @@ public class FridgeAnomaly : Anomaly
         {
             if (!isShaking)
             {
-                StartCoroutine(Shake());
+                animator.SetBool("ScaryFridge", true); 
+      
                 isShaking = true;
             }
         }
         else
         {
-            StopAllCoroutines();
-            transform.localPosition = originalPosition;
+            animator.SetBool("ScaryFridge", false);
             isShaking = false;
         }
     }
