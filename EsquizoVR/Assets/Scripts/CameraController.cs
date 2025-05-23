@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
     {
         if (playerTransform == null || rb == null) return;
 
-        Vector3 offset = playerTransform.right * + 0.2f + playerTransform.up * -0.3f + playerTransform.forward * 0.2f;
+        Vector3 offset = playerTransform.right * + 0.2f + playerTransform.up * -0.3f + playerTransform.forward * 0.4f;
         Vector3 targetPosition = playerTransform.position + offset;
 
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
