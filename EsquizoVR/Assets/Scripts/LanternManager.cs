@@ -13,30 +13,33 @@ public class LanternManager : MonoBehaviour
     public XRBaseInteractor leftHandInteractor;
     public Transform playerTransform;
 
-    [SerializeField, Tooltip("Distancia delante de la cámara donde se colocará la linterna")]
+    [SerializeField]
     private float followDistance = 1.5f;
 
-    [SerializeField, Tooltip("Velocidad con la que la linterna sigue al jugador")]
+    [SerializeField]
     private float followSmoothness = 5f;
 
     private XRGrabInteractable grabInteractable;
-    [SerializeField, Tooltip("Estado actual de la linterna (solo lectura)")]
     private bool isOn = false;
-
     private bool isHeldByLeftHand = false;
     private InputDevice leftHandDevice;
     private bool buttonPressedLastFrame = false;
-
-    private Transform cameraTransform;
     private bool buttonpress = false;
 
+    private Transform cameraTransform;
     private Rigidbody rb;
+    private Transform lanternAnchor;
 
     private void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
         rb = GetComponent<Rigidbody>();
         cameraTransform = Camera.main.transform;
+
+        lanternAnchor = new GameObject("LanternAnchor").transform;
+        lanternAnchor.SetParent(cameraTransform);
+        lanternAnchor.localPosition = new Vector3(-0.2f, -0.3f, 0.2f);
+        lanternAnchor.localRotation = Quaternion.identity;
     }
 
     private void OnEnable()
@@ -54,7 +57,6 @@ public class LanternManager : MonoBehaviour
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
         isHeldByLeftHand = args.interactorObject.transform == leftHandInteractor.transform;
-
         if (isHeldByLeftHand)
         {
             InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.primaryButton, out _);
@@ -64,28 +66,15 @@ public class LanternManager : MonoBehaviour
         }
     }
 
-    public void FollowCharacterNotGrabbed()
+    private void FollowCharacterNotGrabbed()
     {
-        if (cameraTransform == null || rb == null) return;
+        if (lanternAnchor == null || rb == null) return;
 
-        Vector3 offset = cameraTransform.right * -0.2f + cameraTransform.up * -0.3f + cameraTransform.forward* 0.2f;
-        Vector3 targetPosition = cameraTransform.position + offset;
+        if (!rb.isKinematic) rb.isKinematic = true;
 
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-
-        if (distanceToTarget > 0.1f)
-        {
-            
-            if (!rb.isKinematic) rb.isKinematic = true;
-
-            Vector3 newPos = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSmoothness);
-            Quaternion newRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(cameraTransform.forward), Time.deltaTime * followSmoothness);
-
-            transform.position = newPos;
-            transform.rotation = newRot;
-        }
+        transform.position = lanternAnchor.position;
+        transform.rotation = lanternAnchor.rotation;
     }
-
 
     private void OnSelectExited(SelectExitEventArgs args)
     {

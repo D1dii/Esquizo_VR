@@ -11,26 +11,36 @@ public class CameraController : MonoBehaviour
     private Rigidbody rb;
 
     public XRGrabInteractable interactable;
-
     public InputActionReference cameraShotAction;
 
-    [SerializeField, Tooltip("Velocidad con la que la camara sigue al jugador")]
+    [SerializeField]
     private float followSmoothness = 5f;
 
     public int resWidth = 1920;
     public int resHeight = 1080;
 
     public Camera cameraComponent;
-
     public NotebookController notebookController;
-
     public GameObject photoPrefab;
+
+    private Transform cameraAnchor;
 
     public void Awake()
     {
         cameraShotAction.action.Enable();
         cameraShotAction.action.performed += ctx => TakeCameraShot();
         rb = GetComponent<Rigidbody>();
+
+        if (playerTransform == null)
+        {
+            Debug.LogError("PlayerTransform not assigned!");
+            return;
+        }
+
+        cameraAnchor = new GameObject("CameraAnchor").transform;
+        cameraAnchor.SetParent(playerTransform);
+        cameraAnchor.localPosition = new Vector3(0.2f, -0.3f, 0.4f);
+        cameraAnchor.localRotation = Quaternion.identity;
     }
 
     public void OnDestroy()
@@ -39,46 +49,28 @@ public class CameraController : MonoBehaviour
         cameraShotAction.action.Disable();
     }
 
-    // Start is called before the first frame update
     public void Start()
     {
         interactable = GetComponent<XRGrabInteractable>();
         cameraComponent = GetComponent<Camera>();
     }
 
-    // Update is called once per frame
     public void Update()
     {
-
         if (!interactable.isSelected)
         {
             FollowCharacterNotGrabbed();
         }
-
-        
-
     }
 
     public void FollowCharacterNotGrabbed()
     {
-        if (playerTransform == null || rb == null) return;
+        if (cameraAnchor == null || rb == null) return;
 
-        Vector3 offset = playerTransform.right * + 0.2f + playerTransform.up * -0.3f + playerTransform.forward * 0.4f;
-        Vector3 targetPosition = playerTransform.position + offset;
+        if (!rb.isKinematic) rb.isKinematic = true;
 
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-
-        if (distanceToTarget > 0.1f)
-        {
-
-            if (!rb.isKinematic) rb.isKinematic = true;
-
-            Vector3 newPos = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSmoothness);
-            Quaternion newRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(playerTransform.forward), Time.deltaTime * followSmoothness);
-
-            transform.position = newPos;
-            transform.rotation = newRot;
-        }
+        transform.position = cameraAnchor.position;
+        transform.rotation = cameraAnchor.rotation;
     }
 
     public static string ScreenShotName(int width, int height)
