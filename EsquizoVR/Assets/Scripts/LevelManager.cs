@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
     public void PassLevel()
     {
         currentlevelIndex++;
-    }
+    } 
 }
 
 
