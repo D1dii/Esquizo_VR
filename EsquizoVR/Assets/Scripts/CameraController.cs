@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -22,8 +23,10 @@ public class CameraController : MonoBehaviour
     public Camera cameraComponent;
     public NotebookController notebookController;
     public GameObject photoPrefab;
+    public FinalRoomManger finalRoomManager;
 
     private Transform cameraAnchor;
+
 
     public void Awake()
     {
@@ -132,9 +135,11 @@ public class CameraController : MonoBehaviour
             System.IO.File.WriteAllBytes(filePath, bytes);
 
             Debug.Log(string.Format("Took screenshot to: {0}", filePath));
-            if(HasShotAnAnomaly())
+            finalRoomManager.CheckOpenFinalRoom();
+            if (HasShotAnAnomaly())
             {
                 Debug.Log("Anomaly detected in the photo!");
+            
             }
             else
             {

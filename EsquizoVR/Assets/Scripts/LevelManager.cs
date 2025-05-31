@@ -19,6 +19,8 @@ public class LevelManager : MonoBehaviour
     public IReadOnlyDictionary<string, GameObject> AnomaliesAndModel => anomaliesAndModelDict;
 
     private int currentlevelIndex = 1;
+    public int CurrentLevelIndex => currentlevelIndex;
+    public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
 
     private void Awake()
     {
@@ -47,7 +49,7 @@ public class LevelManager : MonoBehaviour
         anomalyManager.SpawnAnomalies(AnomaliesPerLevel[currentlevelIndex]);
     }
 
-    public int CurrentLevelIndex => currentlevelIndex;
+    
 
     public void PassLevel()
     {
