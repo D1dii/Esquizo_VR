@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Anomaly : MonoBehaviour
 {
-    public Vector3 SpawnPos;
 
     public virtual void InitAnomaly(){}
 }

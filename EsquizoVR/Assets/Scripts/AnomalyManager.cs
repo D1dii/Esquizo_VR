@@ -25,7 +25,6 @@ public class AnomalyManager : MonoBehaviour
         foreach (var anomalyPrefab in selected)
         {
             var instance = Instantiate(anomalyPrefab as MonoBehaviour).gameObject;
-            instance.transform.position = anomalyPrefab.SpawnPos;
 
             Anomaly anomalyInstance = instance.GetComponent<Anomaly>();
             activeAnomalies.Add(anomalyInstance);
