@@ -1192,6 +1192,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4a645c929982ea41a52b5037ee7d94d, type: 3}
+--- !u!1 &1211113157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1211113158}
+  m_Layer: 0
+  m_Name: empty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1211113158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211113157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.79648376, y: 1.918883, z: 11.944481}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1249049731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7277802326798953675, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
@@ -1332,6 +1363,8 @@ MonoBehaviour:
     modelPrefab: {fileID: 800350359}
   - anomalyId: Chairs
     modelPrefab: {fileID: 602049775637903301}
+  - anomalyId: Empty
+    modelPrefab: {fileID: 1211113157}
 --- !u!114 &1615220357 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8404871649812681847, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
@@ -1544,6 +1577,7 @@ MonoBehaviour:
   - {fileID: 1810871696216814439, guid: fda8a4c161b2c0a4d87ad2db242acfe6, type: 3}
   - {fileID: 3835505110285289455, guid: f12cafef8d4272f41937d4389405453c, type: 3}
   - {fileID: 7231003330128057109, guid: 14e729bfa155ffb4aa268fa0598bb502, type: 3}
+  - {fileID: 8453410056337945775, guid: a3790e712306fe8409ba6fd9d047a09e, type: 3}
 --- !u!4 &1898182000
 Transform:
   m_ObjectHideFlags: 0
@@ -53732,3 +53766,4 @@ SceneRoots:
   - {fileID: 1034082570}
   - {fileID: 1676168780}
   - {fileID: 54977190}
+  - {fileID: 1211113158}
