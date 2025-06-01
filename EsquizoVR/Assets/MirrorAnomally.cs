@@ -5,6 +5,7 @@ using UnityEngine;
 public class MirrorAnomally : Anomaly
 {
     public bool playerHasEntered = false;
+    public bool alreadyPlayed = false;
 
     public override void InitAnomaly()
     {

@@ -11,10 +11,11 @@ public class ExitTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (stateManager.playerHasEntered)
+            if (stateManager.playerHasEntered && stateManager.alreadyPlayed == false)
             {
                 Debug.Log("Player entró en EXIT después de ENTER. Reproduciendo audio.");
                 audioSource?.Play();
+                stateManager.alreadyPlayed = true;
                 //stateManager.playerHasEntered = false; // Reiniciar
             }
             else
