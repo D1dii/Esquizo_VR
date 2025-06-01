@@ -27,6 +27,8 @@ public class CameraController : MonoBehaviour
 
     private Transform cameraAnchor;
 
+    public bool isOnTutorial = false;
+
 
     public void Awake()
     {
@@ -135,16 +137,24 @@ public class CameraController : MonoBehaviour
             System.IO.File.WriteAllBytes(filePath, bytes);
 
             Debug.Log(string.Format("Took screenshot to: {0}", filePath));
-            finalRoomManager.CheckOpenFinalRoom();
-            if (HasShotAnAnomaly())
+            if (!isOnTutorial)
             {
-                Debug.Log("Anomaly detected in the photo!");
-            
+                finalRoomManager.CheckOpenFinalRoom();
+                if (HasShotAnAnomaly())
+                {
+                    Debug.Log("Anomaly detected in the photo!");
+
+                }
+                else
+                {
+                    Debug.Log("No anomalies detected in the photo.");
+                }
             }
             else
             {
-                Debug.Log("No anomalies detected in the photo.");
+                UIPopupManager.Instance.ShowPopup("GoToFinalRoom", "Nice shot! After you’re finished, the final room will appear. If you’re convinced you’ve captured all the anomalies, go ahead and enter.");
             }
+
         }
     }
 

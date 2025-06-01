@@ -1,15 +1,21 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class UIPopupManager : MonoBehaviour
 {
     public static UIPopupManager Instance;
 
-    [SerializeField] private Transform cameraTransform;
     [SerializeField] private GameObject popupPrefab;
-    [SerializeField] private float popupDuration = 5f;
     [SerializeField] private float followDistance = 1.5f;
+    [SerializeField] private float typeSpeed = 0.025f;
+    [SerializeField] private float popupDuration = 3f;
+
+    private Transform cameraTransform;
+    private GameObject currentPopup;
+    private Coroutine typeCoroutine;
 
     private void Awake()
     {
@@ -25,71 +31,83 @@ public class UIPopupManager : MonoBehaviour
     {
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
-
-        ShowPopup("Welcome to the VR Experience!");
     }
 
-    public void ShowPopup(string message)
+    public void ShowPopup(string key, string message)
     {
-        if (popupPrefab == null || cameraTransform == null)
+        if (popupPrefab == null || cameraTransform == null) return;
+
+        if (currentPopup != null)
         {
-            Debug.LogWarning("PopupPrefab or CameraTransform not assigned");
-            return;
+            currentPopup.transform.DOKill();
+            Destroy(currentPopup);
+            currentPopup = null;
         }
 
-        GameObject popup = Instantiate(popupPrefab);
-        popup.transform.localScale = Vector3.zero;
+        currentPopup = Instantiate(popupPrefab);
+        currentPopup.transform.localScale = Vector3.zero;
+        currentPopup.transform.position = cameraTransform.position + cameraTransform.forward * followDistance;
+        currentPopup.transform.LookAt(cameraTransform);
+        currentPopup.transform.Rotate(0, 180f, 0);
+        currentPopup.transform.DOScale(0.002f, 0.4f).SetEase(Ease.OutBack);
 
-        Vector3 targetPos = cameraTransform.position + cameraTransform.forward * followDistance;
-        popup.transform.position = targetPos;
-        popup.transform.LookAt(cameraTransform);
-        popup.transform.Rotate(0, 180f, 0); // Flip to face user correctly
-
-        popup.transform.DOScale(0.002f, 0.4f).SetEase(Ease.OutBack);
-
-        var text = popup.GetComponentInChildren<TMPro.TMP_Text>();
+        TMP_Text text = currentPopup.GetComponentInChildren<TMP_Text>();
         if (text != null)
         {
-            text.text = message;
+            text.text = "";
+            if (typeCoroutine != null) StopCoroutine(typeCoroutine);
+            typeCoroutine = StartCoroutine(TypeTextEffect(text, message));
         }
 
-        popup.AddComponent<VRPopupFollower>().Init(popupDuration, followDistance);
+        currentPopup.AddComponent<VRPopupFollower>().Init(cameraTransform, followDistance);
+        StartCoroutine(AutoHidePopup(currentPopup));
+    }
+
+    private IEnumerator TypeTextEffect(TMP_Text textMesh, string fullText)
+    {
+        for (int i = 0; i <= fullText.Length; i++)
+        {
+            textMesh.text = fullText.Substring(0, i);
+            yield return new WaitForSeconds(typeSpeed);
+        }
+    }
+
+    private IEnumerator AutoHidePopup(GameObject popup)
+    {
+        yield return new WaitForSeconds(popupDuration);
+        if (popup != null && popup == currentPopup)
+        {
+            popup.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() => Destroy(popup));
+            currentPopup = null;
+        }
+    }
+
+    public void HidePopup()
+    {
+        if (currentPopup == null) return;
+
+        currentPopup.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() => Destroy(currentPopup));
+        currentPopup = null;
     }
 }
 
 public class VRPopupFollower : MonoBehaviour
 {
     private Transform targetCamera;
-    private float duration;
     private float distance;
-    private float timer = 0f;
 
-    public void Init(float popupDuration, float followDistance)
+    public void Init(Transform cameraTransform, float followDistance)
     {
-        duration = popupDuration;
+        targetCamera = cameraTransform;
         distance = followDistance;
-    }
-
-    private void Start()
-    {
-        Camera cam = Camera.main;
-        if (cam != null)
-            targetCamera = cam.transform;
     }
 
     private void LateUpdate()
     {
         if (targetCamera == null) return;
 
-        timer += Time.deltaTime;
         transform.position = targetCamera.position + targetCamera.forward * distance;
         transform.LookAt(targetCamera);
         transform.Rotate(0, 180f, 0);
-
-        if (timer >= duration)
-        {
-            transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
-            enabled = false;
-        }
     }
 }
