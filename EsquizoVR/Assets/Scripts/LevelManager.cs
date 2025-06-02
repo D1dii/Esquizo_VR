@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<IntIntPair> anomaliesPerLevelList = new();
     [SerializeField] private List<StringGameObjectPair> anomaliesAndModelList = new();
 
-    private Dictionary<int, int> anomaliesPerLevelDict;
+    [SerializeField] private Dictionary<int, int> anomaliesPerLevelDict;
     private Dictionary<string, GameObject> anomaliesAndModelDict;
 
     public IReadOnlyDictionary<int, int> AnomaliesPerLevel => anomaliesPerLevelDict;
@@ -21,8 +21,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TextNumAnomalies textNumAnomalies;
 
     private int currentlevelIndex = 1;
+    [SerializeField] private int currentlevelIndex = 1;
     public int CurrentLevelIndex => currentlevelIndex;
-    public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
+    [SerializeField] public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
 
     private void Awake()
     {

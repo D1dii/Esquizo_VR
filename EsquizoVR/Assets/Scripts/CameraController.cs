@@ -62,6 +62,9 @@ public class CameraController : MonoBehaviour
 
     public void Update()
     {
+
+        if (SelectFinalShotsManager.instance.selectingFinalShots == true) { return; }
+
         if (!interactable.isSelected)
         {
             FollowCharacterNotGrabbed();
@@ -107,7 +110,7 @@ public class CameraController : MonoBehaviour
 
     public void TakeCameraShot()
     {
-        if (interactable.isSelected)
+        if (interactable.isSelected && !SelectFinalShotsManager.instance.selectingFinalShots)
         {
             RenderTexture renderTexture = new RenderTexture(resWidth, resHeight, 24);
             cameraComponent.targetTexture = renderTexture;
@@ -129,6 +132,8 @@ public class CameraController : MonoBehaviour
             cameraShot.GetComponent<SpriteRenderer>().sortingOrder = 1;
             cameraShot.transform.SetParent(notebookController.transform, false);
             cameraShot.transform.localScale = new Vector3(0.0175f, 0.0175f, 0.0175f);
+
+            cameraShot.GetComponent<PhotoController>().hasAnomaly = HasShotAnAnomaly();
 
             // Agregar a la lista
             notebookController.cameraShots.Add(cameraShot);

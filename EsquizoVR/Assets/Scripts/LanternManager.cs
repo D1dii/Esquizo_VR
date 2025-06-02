@@ -83,6 +83,9 @@ public class LanternManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (SelectFinalShotsManager.instance.selectingFinalShots == true) { return; }
+
         if (!isHeldByLeftHand)
             FollowCharacterNotGrabbed();
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -17,7 +18,7 @@ public class NotebookController : MonoBehaviour
 
     public bool isNotebookOpen = false;
 
-    private int currentPage = 0;
+    public int currentPage = 0;
     private const int photosPerPage = 9;
 
     public InputActionReference nextPageAction;
@@ -76,6 +77,9 @@ public class NotebookController : MonoBehaviour
 
     public void Update()
     {
+
+        if (SelectFinalShotsManager.instance.selectingFinalShots == true) { return; }
+
         if (!interactable.isSelected)
         {
             FollowCharacterNotGrabbed();
@@ -107,7 +111,7 @@ public class NotebookController : MonoBehaviour
 
     public void OpenNotebook()
     {
-        if (interactable.isSelected)
+        if (interactable.isSelected && !SelectFinalShotsManager.instance.selectingFinalShots)
         {
             if (isNotebookOpen)
             {
@@ -150,12 +154,11 @@ public class NotebookController : MonoBehaviour
 
     public void ArrangeCameraShotsInGrid()
     {
-        int columns = 3; // Number of columns in the grid
-        float spacing = 0.1f; // Spacing between photos
-        float rowSpacing = 0.1f; // Spacing between rows
-        Vector3 forwardOffset = transform.up * 0.15f; // Offset to position the grid in front of the notebook
-        Vector3 startPosition = transform.position + forwardOffset + new Vector3(-0.1f, 0, 0.1f); // Start position for the grid
-        Quaternion notebookRotation = transform.rotation; // Align photos with notebook rotation
+        int columns = 3;
+        float spacing = 0.1f;
+        Vector3 startPosition = transform.position + new Vector3(-0.1f, 0.1f, 0.1f);
+        Quaternion extraRotation = Quaternion.Euler(90, 0, 0);
+
 
         // Hide all photos first
         for (int i = 0; i < cameraShots.Count; i++)
@@ -172,15 +175,11 @@ public class NotebookController : MonoBehaviour
             int row = localIndex / columns;
             int column = localIndex % columns;
 
-            // Calculate position relative to the notebook
-            Vector3 position = startPosition
-                + transform.right * (column * spacing) // Offset horizontally
-                - transform.forward * (row * rowSpacing);  // Offset vertically
+            Vector3 position = startPosition + new Vector3(column * spacing, 0, -row * spacing);
 
             cameraShots[i].SetActive(true);
             cameraShots[i].transform.position = position;
-            cameraShots[i].transform.rotation = notebookRotation; // Align rotation with notebook
-            cameraShots[i].transform.rotation = Quaternion.Euler(90, 0, 0); // Flip the photo to face the player
+            cameraShots[i].transform.rotation = transform.rotation * extraRotation;
         }
     }
 

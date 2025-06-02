@@ -1614,6 +1614,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AcceptSelection",
+                    "type": "Button",
+                    "id": "ad2ae9e7-26b7-4ec3-8554-c22149284fda",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectPhoto",
+                    "type": "Button",
+                    "id": "83265bb6-8ad8-44a2-a069-72aa4d94cbd3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -2032,6 +2050,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "CameraShot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9542f8d1-1ce2-4e2c-a1fb-e4595e476ae0",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AcceptSelection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b65ae509-d1ba-4e87-b824-7fd0e727313c",
+                    "path": "*/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectPhoto",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -2599,7 +2639,7 @@
                 {
                     "name": "",
                     "id": "052b129b-fc83-4b33-a606-af10ad595c3e",
-                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "path": "<XRController>{RightHand}/{Cancel}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
