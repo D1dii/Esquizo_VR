@@ -13,6 +13,7 @@ public class NotebookController : MonoBehaviour
     public InputActionReference openNotebook;
 
     public List<GameObject> cameraShots;
+    public List<bool> isAnomaly;
 
     public bool isNotebookOpen = false;
 
@@ -21,6 +22,10 @@ public class NotebookController : MonoBehaviour
 
     public InputActionReference nextPageAction;
     public InputActionReference prevPageAction;
+
+    private Transform cameraTransform;
+    private Rigidbody rb;
+    private Transform notebookAnchor;
 
     public void Awake()
     {
@@ -37,6 +42,14 @@ public class NotebookController : MonoBehaviour
             prevPageAction.action.Enable();
             prevPageAction.action.performed += ctx => PreviousPage();
         }
+
+        rb = GetComponent<Rigidbody>();
+        cameraTransform = Camera.main.transform;
+
+        notebookAnchor = new GameObject("NoteBookAnchor").transform;
+        notebookAnchor.SetParent(cameraTransform);
+        notebookAnchor.localPosition = new Vector3(-0.2f, -0.3f, 0.6f);
+        notebookAnchor.localRotation = Quaternion.identity;
     }
 
     public void OnDestroy()
@@ -84,7 +97,12 @@ public class NotebookController : MonoBehaviour
 
     public void FollowCharacterNotGrabbed()
     {
-        transform.position = new Vector3(playerTransform.position.x + 0.5f, transform.position.y, playerTransform.position.z - 0.5f);
+        if (notebookAnchor == null || rb == null) return;
+
+        if (!rb.isKinematic) rb.isKinematic = true;
+
+        transform.position = notebookAnchor.position;
+        transform.rotation = notebookAnchor.rotation;
     }
 
     public void OpenNotebook()
@@ -132,12 +150,14 @@ public class NotebookController : MonoBehaviour
 
     public void ArrangeCameraShotsInGrid()
     {
-        int columns = 3;
-        float spacing = 0.2f;
-        Vector3 startPosition = transform.position + new Vector3(-0.3f, 0.1f, 0);
-        Quaternion extraRotation = Quaternion.Euler(90, 0, 0);
+        int columns = 3; // Number of columns in the grid
+        float spacing = 0.1f; // Spacing between photos
+        float rowSpacing = 0.1f; // Spacing between rows
+        Vector3 forwardOffset = transform.up * 0.15f; // Offset to position the grid in front of the notebook
+        Vector3 startPosition = transform.position + forwardOffset + new Vector3(-0.1f, 0, 0.1f); // Start position for the grid
+        Quaternion notebookRotation = transform.rotation; // Align photos with notebook rotation
 
-        // Oculta todas las fotos primero
+        // Hide all photos first
         for (int i = 0; i < cameraShots.Count; i++)
         {
             cameraShots[i].SetActive(false);
@@ -152,12 +172,17 @@ public class NotebookController : MonoBehaviour
             int row = localIndex / columns;
             int column = localIndex % columns;
 
-            Vector3 position = startPosition + new Vector3(column * spacing, 0, -row * spacing);
+            // Calculate position relative to the notebook
+            Vector3 position = startPosition
+                + transform.right * (column * spacing) // Offset horizontally
+                - transform.forward * (row * rowSpacing);  // Offset vertically
 
             cameraShots[i].SetActive(true);
             cameraShots[i].transform.position = position;
-            cameraShots[i].transform.rotation = transform.rotation * extraRotation;
+            cameraShots[i].transform.rotation = notebookRotation; // Align rotation with notebook
+            cameraShots[i].transform.rotation = Quaternion.Euler(90, 0, 0); // Flip the photo to face the player
         }
     }
+
 }
 

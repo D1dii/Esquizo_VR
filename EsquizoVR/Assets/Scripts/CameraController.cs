@@ -127,6 +127,8 @@ public class CameraController : MonoBehaviour
 
             // Configurar el SpriteRenderer
             cameraShot.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            cameraShot.transform.SetParent(notebookController.transform, false);
+            cameraShot.transform.localScale = new Vector3(0.0175f, 0.0175f, 0.0175f);
 
             // Agregar a la lista
             notebookController.cameraShots.Add(cameraShot);
@@ -182,11 +184,13 @@ public class CameraController : MonoBehaviour
                     float distance = Vector3.Distance(cameraComponent.transform.position, hit.point);
                     if (distance <= 3.0f)
                     {
+                        notebookController.isAnomaly.Add(true);
                         return true;
                     }
                 }
             }
         }
+        notebookController.isAnomaly.Add(false);
         return false;
     }
 }
