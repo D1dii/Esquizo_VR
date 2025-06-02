@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SelectFinalShotsManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class SelectFinalShotsManager : MonoBehaviour
     public float currentSelections = 0;
 
     public InputActionReference confirmSelectionAction;
+
+    public SpriteRenderer fadeToBlackImage;
 
     private void Awake()
     {
@@ -84,18 +87,25 @@ public class SelectFinalShotsManager : MonoBehaviour
         {
             if (finalShots[i] == false)
             {
-                allAnomaliesCorrectlySelected = false;
+                //allAnomaliesCorrectlySelected = false;
             }
         }
 
         if (allAnomaliesCorrectlySelected)
         {
-            //LevelManager.instance.PassLevel();
-            Debug.Log("All anomalies have been correctly selected. Proceeding to next level.");
-        }
-        else
-        {
-            Debug.Log("Some anomalies were not selected correctly. Please try again.");
+            StartCoroutine(FadeToBlackCoroutine(() =>
+            {
+                LevelManager.instance.PassLevel();
+                selectingFinalShots = false;
+                finalShots.Clear(); // Clear the list for the next level
+                Debug.Log("All anomalies have been correctly selected. Proceeding to next level.");
+
+                // Start fade-out after fade-to-black
+                StartCoroutine(FadeOutCoroutine(() =>
+                {
+                    Debug.Log("Fade-out completed.");
+                }));
+            }));
         }
     }
 
@@ -151,8 +161,47 @@ public class SelectFinalShotsManager : MonoBehaviour
     }
 
 
+    private IEnumerator FadeToBlackCoroutine(System.Action onComplete)
+    {
+        float duration = 1.5f; // Duration of the fade effect
+        float elapsedTime = 0f;
 
+        Color startColor = fadeToBlackImage.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1f); // Fully opaque black
 
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeToBlackImage.color = Color.Lerp(startColor, endColor, elapsedTime / duration);
+            yield return null;
+        }
+
+        fadeToBlackImage.color = endColor;
+
+        // Call the completion callback
+        onComplete?.Invoke();
+    }
+
+    private IEnumerator FadeOutCoroutine(System.Action onComplete)
+    {
+        float duration = 1.5f; // Duration of the fade effect
+        float elapsedTime = 0f;
+
+        Color startColor = fadeToBlackImage.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f); // Fully transparent
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeToBlackImage.color = Color.Lerp(startColor, endColor, elapsedTime / duration);
+            yield return null;
+        }
+
+        fadeToBlackImage.color = endColor;
+
+        // Call the completion callback
+        onComplete?.Invoke();
+    }
 
     private void OnTriggerEnter(Collider other)
     {

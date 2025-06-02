@@ -44,8 +44,8 @@ public class FinalRoomManger : MonoBehaviour
 
 
             //Placeholder, pero cuando se checkee 
-            level.PassLevel();
-            SceneManager.LoadScene("SampleScene");
+            //level.PassLevel();
+            //SceneManager.LoadScene("SampleScene");
             Debug.Log("Player has entered the final room!");
             doorAnimator.SetTrigger("Close");
 

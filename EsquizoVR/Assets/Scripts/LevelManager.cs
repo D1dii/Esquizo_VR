@@ -25,6 +25,11 @@ public class LevelManager : MonoBehaviour
     public int CurrentLevelIndex => currentlevelIndex;
     [SerializeField] public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
 
+    public GameObject player;
+    public Vector3 startPosition;
+
+    public NotebookController notebookController;
+
     private void Awake()
     {
         if (instance == null)
@@ -43,6 +48,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        startPosition = player.transform.position; // Store the initial player position
         StartLevel();
     }
 
@@ -50,6 +56,8 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Starting level " + currentlevelIndex);
         anomalyManager.SpawnAnomalies(AnomaliesPerLevel[currentlevelIndex]);
+
+        player.transform.position = startPosition; // Reset player position for the new level
 
         if (textNumAnomalies != null)
         {
@@ -66,6 +74,8 @@ public class LevelManager : MonoBehaviour
     public void PassLevel()
     {
         currentlevelIndex++;
+        notebookController.DeletePhotos(); // Clear previous photos
+        StartLevel();
     } 
 }
 

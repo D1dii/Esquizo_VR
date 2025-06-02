@@ -183,5 +183,18 @@ public class NotebookController : MonoBehaviour
         }
     }
 
+    public void DeletePhotos()
+    {
+        for (int i = 0; i < cameraShots.Count; i++)
+        {
+            if (cameraShots[i] != null)
+            {
+                Destroy(cameraShots[i]);
+                cameraShots.RemoveAt(i);
+            }
+        }
+        currentPage = 0;
+
+    }
 }
 
