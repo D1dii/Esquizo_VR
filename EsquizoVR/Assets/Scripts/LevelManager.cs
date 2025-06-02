@@ -18,6 +18,8 @@ public class LevelManager : MonoBehaviour
     public IReadOnlyDictionary<int, int> AnomaliesPerLevel => anomaliesPerLevelDict;
     public IReadOnlyDictionary<string, GameObject> AnomaliesAndModel => anomaliesAndModelDict;
 
+    [SerializeField] private TextNumAnomalies textNumAnomalies;
+
     private int currentlevelIndex = 1;
     public int CurrentLevelIndex => currentlevelIndex;
     public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
@@ -47,6 +49,15 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Starting level " + currentlevelIndex);
         anomalyManager.SpawnAnomalies(AnomaliesPerLevel[currentlevelIndex]);
+
+        if (textNumAnomalies != null)
+        {
+            textNumAnomalies.UpdateAnomalyText();
+        }
+        else
+        {
+            Debug.LogWarning("TextNumAnomalies is not assigned in LevelManager.");
+        }
     }
 
     

@@ -48,4 +48,8 @@ public class AnomalyManager : MonoBehaviour
             (list[i], list[rand]) = (list[rand], list[i]);
         }
     }
+    public int GetActiveAnomalyCount()
+    {
+        return activeAnomalies.Count;
+    }
 }
