@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private TextNumAnomalies textNumAnomalies;
 
-    private int currentlevelIndex = 1;
+    
     [SerializeField] private int currentlevelIndex = 1;
     public int CurrentLevelIndex => currentlevelIndex;
     [SerializeField] public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
