@@ -87,7 +87,7 @@ public class SelectFinalShotsManager : MonoBehaviour
         {
             if (finalShots[i] == false)
             {
-                //allAnomaliesCorrectlySelected = false;
+                allAnomaliesCorrectlySelected = false;
             }
         }
 
