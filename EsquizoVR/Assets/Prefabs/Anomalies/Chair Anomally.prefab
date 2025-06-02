@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6465643677553107930}
   - component: {fileID: 5162421052274078057}
   - component: {fileID: 7231003330128057109}
+  - component: {fileID: 991623475437878700}
   m_Layer: 0
   m_Name: Chair Anomally
   m_TagString: Untagged
@@ -98,6 +99,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fe44cab8334134b80d452616470fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &991623475437878700
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434399488013239872}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.016290916, y: 0.07138507, z: 0.03340653}
+  m_Center: {x: -0.000045380802, y: 0.02822733, z: -0.0050798594}
 --- !u!1 &7356878821050932252
 GameObject:
   m_ObjectHideFlags: 0

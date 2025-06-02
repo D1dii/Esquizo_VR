@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4254892859396759030}
   - component: {fileID: 1062089478635144405}
   - component: {fileID: 3835505110285289455}
+  - component: {fileID: 2954462800482013024}
   m_Layer: 0
   m_Name: Drink Anomally
   m_TagString: Untagged
@@ -182,6 +183,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d0da1a1d2c28e468ce8400430755f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2954462800482013024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8010614963847583442}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.032712113, y: 0.02573891, z: 0.014363192}
+  m_Center: {x: -0.0009945246, y: 0.0036797556, z: 0.0017422773}
 --- !u!1 &8430600493517831389
 GameObject:
   m_ObjectHideFlags: 0
