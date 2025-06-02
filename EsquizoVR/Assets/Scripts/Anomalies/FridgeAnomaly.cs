@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class FridgeAnomaly : Anomaly
 {
-    public float detectionRange = 3f;
+    public float detectionRange = 2f;
     public float shakeIntensity = 0.05f;
-    private Transform playerHead; 
+
+    private Transform playerHead;
     private Vector3 originalPosition;
-    private bool isShaking = false;
+
     public Animator animator;
+
+    private bool hasTriggered = false;
 
     void Start()
     {
@@ -32,32 +35,19 @@ public class FridgeAnomaly : Anomaly
 
         if (distance < detectionRange)
         {
-            if (!isShaking)
+            if (!hasTriggered)
             {
-                animator.SetBool("ScaryFridge", true); 
-      
-                isShaking = true;
+                animator.SetBool("Open", true);
+                hasTriggered = true;
             }
         }
         else
         {
-            animator.SetBool("ScaryFridge", false);
-            isShaking = false;
-        }
-    }
-
-    IEnumerator Shake()
-    {
-        while (true)
-        {
-            Vector3 randomOffset = new Vector3(
-                Random.Range(-shakeIntensity, shakeIntensity),
-                Random.Range(-shakeIntensity, shakeIntensity),
-                Random.Range(-shakeIntensity, shakeIntensity)
-            );
-
-            transform.localPosition = originalPosition + randomOffset;
-            yield return null;
+            if (hasTriggered)
+            {
+                animator.SetBool("Open", false);
+                hasTriggered = false;
+            }
         }
     }
 
