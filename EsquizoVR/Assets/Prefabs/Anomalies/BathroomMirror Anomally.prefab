@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4369d5650b7682e418a0507d9cf5ad6b, type: 2}
+  - {fileID: 2100000, guid: e0dd13a8e72be674c8937a2d4af2386f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -334,6 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHasEntered: 0
   alreadyPlayed: 0
+  mirrorMaterial: {fileID: 2100000, guid: e0dd13a8e72be674c8937a2d4af2386f, type: 2}
 --- !u!54 &-7096613359816153591
 Rigidbody:
   m_ObjectHideFlags: 0

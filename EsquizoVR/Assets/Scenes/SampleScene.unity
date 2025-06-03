@@ -59639,6 +59639,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2371062921823036207, guid: 220fd0bc25675fc49a700fe93e767ed9, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2778927261367568665, guid: 220fd0bc25675fc49a700fe93e767ed9, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -81332,6 +81336,10 @@ PrefabInstance:
     - target: {fileID: 2365632209885999711, guid: c4e19262f858d2e498b4e5c3384340df, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546504488497677341, guid: c4e19262f858d2e498b4e5c3384340df, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3063309209295684214, guid: c4e19262f858d2e498b4e5c3384340df, type: 3}
       propertyPath: m_Name
