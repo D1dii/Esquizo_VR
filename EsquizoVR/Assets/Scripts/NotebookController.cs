@@ -48,8 +48,7 @@ public class NotebookController : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         notebookAnchor = new GameObject("NoteBookAnchor").transform;
-        notebookAnchor.SetParent(cameraTransform);
-        notebookAnchor.localPosition = new Vector3(-0.2f, -0.3f, 0.6f);
+        notebookAnchor.SetParent(null);
         notebookAnchor.localRotation = Quaternion.identity;
     }
 
@@ -101,12 +100,20 @@ public class NotebookController : MonoBehaviour
 
     public void FollowCharacterNotGrabbed()
     {
-        if (notebookAnchor == null || rb == null) return;
+        if (notebookAnchor == null || rb == null || cameraTransform == null) return;
 
         if (!rb.isKinematic) rb.isKinematic = true;
 
+        // Posición frente al jugador solo con yaw
+        Vector3 offset = new Vector3(-0.2f, -0.3f, 0.6f);
+        Quaternion yawOnly = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
+        Vector3 targetPosition = cameraTransform.position + yawOnly * offset;
+
+        notebookAnchor.position = targetPosition;
         transform.position = notebookAnchor.position;
-        transform.rotation = notebookAnchor.rotation;
+
+        // Aplicar solo rotación horizontal
+        transform.rotation = yawOnly;
     }
 
     public void OpenNotebook()
