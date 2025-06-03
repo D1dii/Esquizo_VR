@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TextNumAnomalies textNumAnomalies;
 
     
-    [SerializeField] private int currentlevelIndex = 1;
+    [SerializeField] private int currentlevelIndex = 0;
     public int CurrentLevelIndex => currentlevelIndex;
     [SerializeField] public int CurrentAnomaliesOnLevel => anomaliesPerLevelDict[currentlevelIndex];
 
@@ -32,22 +33,14 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
+        instance = this;
         anomaliesPerLevelDict = anomaliesPerLevelList.ToDictionary(p => p.level, p => p.anomalyCount);
         anomaliesAndModelDict = anomaliesAndModelList.ToDictionary(p => p.anomalyId, p => p.modelPrefab);
     }
 
     private void Start()
     {
+        currentlevelIndex = GameManager.instance.currentLevel;
         startPosition = player.transform.position; // Store the initial player position
         StartLevel();
     }
@@ -73,15 +66,13 @@ public class LevelManager : MonoBehaviour
 
     public void PassLevel()
     {
-        currentlevelIndex++;
-        notebookController.DeletePhotos(); // Clear previous photos
-        StartLevel();
+        GameManager.instance.currentLevel++;
+        SceneManager.LoadScene("SampleScene");
     } 
 
     public void RestartLevel()
     {
-        notebookController.DeletePhotos(); // Clear previous photos
-        StartLevel();
+        SceneManager.LoadScene("SampleScene");
     }
 }
 

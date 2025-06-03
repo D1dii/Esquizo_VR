@@ -20,16 +20,15 @@ public class SelectFinalShotsManager : MonoBehaviour
     public float currentSelections = 0;
 
     public InputActionReference confirmSelectionAction;
+    [SerializeField] private InputActionReference triggerSelectAction;
 
     public SpriteRenderer fadeToBlackImage;
 
     private void Awake()
     {
-
         instance = this;
         confirmSelectionAction.action.Enable();
         confirmSelectionAction.action.performed += ctx => CheckPhotosSelected();
-
     }
 
     private void OnDestroy()
@@ -38,45 +37,40 @@ public class SelectFinalShotsManager : MonoBehaviour
         confirmSelectionAction.action.Disable();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         cameraTransform = Camera.main.transform;
         selectingFinalShots = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (selectingFinalShots)
         {
             maxSelections = LevelManager.instance.CurrentAnomaliesOnLevel;
-            // Arrange photos on the desk
             ArrangePhotosOnDesk();
-
             notebookController.transform.rotation = Quaternion.identity;
-
-            
-            
         }
 
-        if (currentSelections != maxSelections)
+        if (currentSelections == maxSelections)
         {
-            confirmSelectionAction.action.Disable();
+            confirmSelectionAction.action.Enable();
+            CheckPhotosSelected();
         }
         else
         {
-            confirmSelectionAction.action.Enable();
+            confirmSelectionAction.action.Disable();
         }
     }
 
     private void CheckPhotosSelected()
     {
         bool allAnomaliesCorrectlySelected = true;
+        finalShots.Clear();
 
-        for (int i = 0; i < notebookController.cameraShots.Count; i++)
+        foreach (var shot in notebookController.cameraShots)
         {
-            PhotoController photoController = notebookController.cameraShots[i].GetComponent<PhotoController>();
+            PhotoController photoController = shot.GetComponent<PhotoController>();
             if (photoController != null && photoController.isSelected)
             {
                 finalShots.Add(photoController.hasAnomaly);
@@ -85,57 +79,47 @@ public class SelectFinalShotsManager : MonoBehaviour
 
         for (int i = 0; i < LevelManager.instance.CurrentAnomaliesOnLevel; i++)
         {
-            if (finalShots[i] == false)
+            if (!finalShots[i])
             {
                 allAnomaliesCorrectlySelected = false;
             }
         }
 
-        if (allAnomaliesCorrectlySelected)
+        StartCoroutine(FadeToBlackCoroutine(() =>
         {
-            StartCoroutine(FadeToBlackCoroutine(() =>
+            if (allAnomaliesCorrectlySelected)
             {
                 LevelManager.instance.PassLevel();
-                selectingFinalShots = false;
-                finalShots.Clear(); // Clear the list for the next level
-                Debug.Log("All anomalies have been correctly selected. Proceeding to next level.");
+            }
+            else
+            {
+                LevelManager.instance.RestartLevel(); // You must ensure this method exists
+            }
 
-                // Start fade-out after fade-to-black
-                StartCoroutine(FadeOutCoroutine(() =>
-                {
-                    Debug.Log("Fade-out completed.");
-                }));
-            }));
-        }
+            selectingFinalShots = false;
+            finalShots.Clear();
+
+            StartCoroutine(FadeOutCoroutine(() => { }));
+        }));
     }
 
     private void ArrangePhotosOnDesk()
     {
-        if (notebookController == null || notebookController.cameraShots == null || notebookController.cameraShots.Count == 0)
-        {
-            Debug.LogWarning("NotebookController or photos are not properly set.");
+        if (notebookController == null || notebookController.cameraShots == null || notebookController.cameraShots.Count == 0 || escritorio == null)
             return;
-        }
 
-        if (escritorio == null)
-        {
-            Debug.LogWarning("Escritorio GameObject is not assigned.");
-            return;
-        }
+        int photosPerPage = 9;
+        int columns = 3;
+        float spacing = 0.25f;
+        float rowSpacing = 0.25f;
+        Vector3 deskPosition = escritorio.transform.position;
+        Vector3 startPosition = deskPosition + new Vector3(-0.1f, 0.2f, -0.1f);
 
-        // Define grid parameters
-        int photosPerPage = 9; // 3x3 grid
-        int columns = 3; // Number of columns in the grid
-        float spacing = 0.25f; // Spacing between photos
-        float rowSpacing = 0.25f; // Spacing between rows
-        Vector3 deskPosition = escritorio.transform.position; // Get the position of the desk
-        Vector3 startPosition = deskPosition + new Vector3(-0.1f, 0.2f, -0.1f); // Offset to start the grid above the desk
-
-        // Hide all photos first
         for (int i = 0; i < notebookController.cameraShots.Count; i++)
         {
-            notebookController.cameraShots[i].SetActive(false);
-            notebookController.cameraShots[i].transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            GameObject photo = notebookController.cameraShots[i];
+            photo.SetActive(false);
+            photo.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
         }
 
         int startIdx = notebookController.currentPage * photosPerPage;
@@ -143,31 +127,31 @@ public class SelectFinalShotsManager : MonoBehaviour
 
         for (int i = startIdx; i < endIdx; i++)
         {
+            GameObject photo = notebookController.cameraShots[i];
             int localIndex = i - startIdx;
             int row = localIndex / columns;
-            int column = localIndex % columns;
+            int col = localIndex % columns;
 
-            // Calculate position relative to the desk
-            Vector3 position = startPosition
-                + escritorio.transform.right * (column * spacing) // Offset horizontally
-                - escritorio.transform.forward * (row * rowSpacing);  // Offset vertically
+            Vector3 pos = startPosition + escritorio.transform.right * (col * spacing) - escritorio.transform.forward * (row * rowSpacing);
+            photo.SetActive(true);
+            photo.transform.position = pos;
+            photo.transform.rotation = Quaternion.Euler(90, 0, 90);
 
-            notebookController.cameraShots[i].SetActive(true);
-            notebookController.cameraShots[i].transform.position = position;
-
-            // Align photos to face upward
-            notebookController.cameraShots[i].transform.rotation = Quaternion.Euler(90, 0, 90);
+            PhotoController controller = photo.GetComponent<PhotoController>();
+            if (controller != null)
+            {
+                controller.Initialize(triggerSelectAction);
+            }
         }
     }
 
-
     private IEnumerator FadeToBlackCoroutine(System.Action onComplete)
     {
-        float duration = 1.5f; // Duration of the fade effect
+        float duration = 1.5f;
         float elapsedTime = 0f;
 
         Color startColor = fadeToBlackImage.color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1f); // Fully opaque black
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1f);
 
         while (elapsedTime < duration)
         {
@@ -177,18 +161,16 @@ public class SelectFinalShotsManager : MonoBehaviour
         }
 
         fadeToBlackImage.color = endColor;
-
-        // Call the completion callback
         onComplete?.Invoke();
     }
 
     private IEnumerator FadeOutCoroutine(System.Action onComplete)
     {
-        float duration = 1.5f; // Duration of the fade effect
+        float duration = 1.5f;
         float elapsedTime = 0f;
 
         Color startColor = fadeToBlackImage.color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f); // Fully transparent
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
 
         while (elapsedTime < duration)
         {
@@ -198,8 +180,6 @@ public class SelectFinalShotsManager : MonoBehaviour
         }
 
         fadeToBlackImage.color = endColor;
-
-        // Call the completion callback
         onComplete?.Invoke();
     }
 

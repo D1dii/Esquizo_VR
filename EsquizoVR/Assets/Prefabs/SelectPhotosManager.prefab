@@ -155,9 +155,10 @@ MonoBehaviour:
   notebookController: {fileID: 0}
   escritorio: {fileID: 1270427055461141087}
   finalShots: 
-  maxSelections: 0
+  maxSelections: 2
   currentSelections: 0
   confirmSelectionAction: {fileID: 4970510749892618168, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  triggerSelectAction: {fileID: 4114012574007579773, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   fadeToBlackImage: {fileID: 0}
 --- !u!65 &2646046112818701213
 BoxCollider:

@@ -2067,7 +2067,7 @@
                 {
                     "name": "",
                     "id": "b65ae509-d1ba-4e87-b824-7fd0e727313c",
-                    "path": "*/{SecondaryButton}",
+                    "path": "<XRSimulatedController>{RightHand}/triggerButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -2554,7 +2554,7 @@
                     "name": "Grab Move",
                     "type": "Button",
                     "id": "cfb29d37-3db0-4e5d-a73b-7d48a19e279e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
