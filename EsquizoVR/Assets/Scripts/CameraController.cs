@@ -30,6 +30,8 @@ public class CameraController : MonoBehaviour
     public bool isOnTutorial = false;
     [SerializeField] private AudioSource cameraShotSound;
 
+    [Header("Flash Effect")]
+    [SerializeField] private GameObject flashLightObject;
 
     public void Awake()
     {
@@ -170,10 +172,19 @@ public class CameraController : MonoBehaviour
             }
             else
             {
-                UIPopupManager.Instance.ShowPopup("GoToFinalRoom", "Nice shot! After you’re finished, the final room will appear. If you’re convinced you’ve captured all the anomalies, go ahead and enter.");
+                UiController.Instance.ShowPopup("GoToFinalRoom", "Nice shot! After you’re finished, the final room will appear. If you’re convinced you’ve captured all the anomalies, go ahead and enter.", false);
             }
+            StartCoroutine(FlashEffect());
 
         }
+    }
+
+    private IEnumerator FlashEffect()
+    {
+        if (flashLightObject == null) yield break;
+        flashLightObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        flashLightObject.SetActive(false);
     }
 
     //Funcion para comprobar si el raycast de la camara colisiona con una anomalia

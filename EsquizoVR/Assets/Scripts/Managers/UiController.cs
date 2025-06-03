@@ -1,17 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.InputSystem;
 using TMPro;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
-public class UIPopupManager : MonoBehaviour
+public class UiController : MonoBehaviour
 {
-    public static UIPopupManager Instance;
+    public static UiController Instance;
 
     [SerializeField] private GameObject popupPrefab;
     [SerializeField] private float followDistance = 1.5f;
     [SerializeField] private float typeSpeed = 0.025f;
     [SerializeField] private float popupDuration = 3f;
+    [SerializeField] private SpriteRenderer fadeToBlackImage;
 
     private Transform cameraTransform;
     private GameObject currentPopup;
@@ -33,7 +35,7 @@ public class UIPopupManager : MonoBehaviour
             cameraTransform = Camera.main.transform;
     }
 
-    public void ShowPopup(string key, string message)
+    public void ShowPopup(string key, string message, bool hasToTransition)
     {
         if (popupPrefab == null || cameraTransform == null) return;
 
@@ -60,7 +62,7 @@ public class UIPopupManager : MonoBehaviour
         }
 
         currentPopup.AddComponent<VRPopupFollower>().Init(cameraTransform, followDistance);
-        StartCoroutine(AutoHidePopup(currentPopup));
+        StartCoroutine(AutoHidePopup(currentPopup, hasToTransition));
     }
 
     private IEnumerator TypeTextEffect(TMP_Text textMesh, string fullText)
@@ -72,13 +74,22 @@ public class UIPopupManager : MonoBehaviour
         }
     }
 
-    private IEnumerator AutoHidePopup(GameObject popup)
+    private IEnumerator AutoHidePopup(GameObject popup, bool transitionAfter)
     {
         yield return new WaitForSeconds(popupDuration);
         if (popup != null && popup == currentPopup)
         {
-            popup.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() => Destroy(popup));
-            currentPopup = null;
+            popup.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                Destroy(popup);
+                currentPopup = null;
+
+                if (transitionAfter)
+                {
+                    GameManager.instance.currentLevel++;
+                    FadeToBlack(() => SceneManager.LoadScene("SampleScene"));
+                }
+            });
         }
     }
 
@@ -88,6 +99,54 @@ public class UIPopupManager : MonoBehaviour
 
         currentPopup.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).OnComplete(() => Destroy(currentPopup));
         currentPopup = null;
+    }
+
+    public void FadeToBlack(System.Action onComplete)
+    {
+        StartCoroutine(FadeToBlackCoroutine(onComplete));
+    }
+
+    private IEnumerator FadeToBlackCoroutine(System.Action onComplete)
+    {
+        float duration = 1.5f;
+        float elapsedTime = 0f;
+
+        Color startColor = fadeToBlackImage.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1f);
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeToBlackImage.color = Color.Lerp(startColor, endColor, elapsedTime / duration);
+            yield return null;
+        }
+
+        fadeToBlackImage.color = endColor;
+        onComplete?.Invoke();
+    }
+
+    public void FadeOut(System.Action onComplete)
+    {
+        StartCoroutine(FadeOutCoroutine(onComplete));
+    }
+
+    private IEnumerator FadeOutCoroutine(System.Action onComplete)
+    {
+        float duration = 1.5f;
+        float elapsedTime = 0f;
+
+        Color startColor = fadeToBlackImage.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeToBlackImage.color = Color.Lerp(startColor, endColor, elapsedTime / duration);
+            yield return null;
+        }
+
+        fadeToBlackImage.color = endColor;
+        onComplete?.Invoke();
     }
 }
 

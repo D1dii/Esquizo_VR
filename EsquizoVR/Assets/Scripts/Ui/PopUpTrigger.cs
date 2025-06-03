@@ -24,16 +24,16 @@ public class PopUpTrigger : MonoBehaviour
         switch (popupToShow)
         {
             case PopupType.Welcome:
-                UIPopupManager.Instance.ShowPopup("Welcome", "Welcome! You are an inspector from the police department. Some neighbors have reported paranormal activity inside this house at night. Your mission is to search for anomalies and document them with your camera.");
+                UiController.Instance.ShowPopup("Welcome", "Welcome! You are an inspector from the police department. Some neighbors have reported paranormal activity inside this house at night. Your mission is to search for anomalies and document them with your camera.", false);
                 break;
             case PopupType.Anomalies:
-                UIPopupManager.Instance.ShowPopup("Anomalies", "Take a look at this place during the day to recognize all the anomalies that may appear at night. Some of them are difficult to spot, and others are very, very... scary.");
+                UiController.Instance.ShowPopup("Anomalies", "Take a look at this place during the day to recognize all the anomalies that may appear at night. Some of them are difficult to spot, and others are very, very... scary.", false);
                 break;
             case PopupType.UseObjects:
-                UIPopupManager.Instance.ShowPopup("UseObjects", "Use your camera to capture anomalies by taking a shot with the trigger. Try to properly aim at what you think is the anomaly. You can review the shots in your notebook.");
+                UiController.Instance.ShowPopup("UseObjects", "Use your camera to capture anomalies by taking a shot with the trigger. Try to properly aim at what you think is the anomaly. You can review the shots in your notebook.", false );
                 break;
             case PopupType.SelectionShots:
-                UIPopupManager.Instance.ShowPopup("SelectionShots", "To progress through the game, select the shots where you believe an anomaly is present. If you're correct, you値l advance to the next level. Otherwise, you値l repeat this level with different anomalies.");
+                UiController.Instance.ShowPopup("SelectionShots", "To progress through the game, select the shots where you believe an anomaly is present. If you're correct, you値l advance to the next level. Otherwise, you値l repeat this level with different anomalies.", true);
                 break;
           
         }
