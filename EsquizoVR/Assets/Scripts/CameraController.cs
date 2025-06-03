@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
     private Transform cameraAnchor;
 
     public bool isOnTutorial = false;
+    [SerializeField] private AudioSource cameraShotSound;
 
 
     public void Awake()
@@ -121,6 +122,7 @@ public class CameraController : MonoBehaviour
     {
         if (interactable.isSelected && !SelectFinalShotsManager.instance.selectingFinalShots)
         {
+            cameraShotSound.Play();
             RenderTexture renderTexture = new RenderTexture(resWidth, resHeight, 24);
             cameraComponent.targetTexture = renderTexture;
             Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGBA32, false);

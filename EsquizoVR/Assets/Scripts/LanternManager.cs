@@ -29,6 +29,7 @@ public class LanternManager : MonoBehaviour
     private Transform cameraTransform;
     private Rigidbody rb;
     private Transform lanternAnchor;
+    [SerializeField] private AudioSource linterna;
 
     private void Awake()
     {
@@ -112,5 +113,6 @@ public class LanternManager : MonoBehaviour
     {
         isOn = !isOn;
         flashlight.enabled = isOn;
+        linterna.Play();
     }
 }
