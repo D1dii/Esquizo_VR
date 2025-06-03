@@ -1,0 +1,364 @@
+fileFormatVersion: 2
+guid: de0bf7b3371728f478abb2344d857c97
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Armario
+    second: {fileID: 2100000, guid: 36058263f852d404ba489ff97e9bb528, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cama
+    second: {fileID: 2100000, guid: 224eee8420be82f41a4fa9e256bc0dcc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cosas cocina
+    second: {fileID: 2100000, guid: fb7518c612a6e974fafe52ef3aed348a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cosas cocina.001
+    second: {fileID: 2100000, guid: 1f0be98386dab074d960aeab7decbc88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cosas de frutas
+    second: {fileID: 2100000, guid: 40c1e913ae9a3184bb4233d3b1406ea8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cuna
+    second: {fileID: 2100000, guid: 61bb2058794a9c44088f5b21c00b551b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Empty
+    second: {fileID: 2100000, guid: 9f34108eb195a034ca7150cd715ea5b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Empty.002
+    second: {fileID: 2100000, guid: 33ec11cdcec252449a6e6ceefa3b844d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Escritorio
+    second: {fileID: 2100000, guid: 3ca453739ca90d040bdaf1646c504e7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Espejo
+    second: {fileID: 2100000, guid: 0489dafd8debfa641a45306155fcb253, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Horno
+    second: {fileID: 2100000, guid: fc7dc6a166180fd41bca90c6011cf362, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Juguete
+    second: {fileID: 2100000, guid: f0c03ec930f452a4381b74c73beb26b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lados
+    second: {fileID: 2100000, guid: 8b0064edf341cbb4995674de0a7be673, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lampara
+    second: {fileID: 2100000, guid: 37fcc6d3e9ab5254b8788be0dd0adbb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lavamano
+    second: {fileID: 2100000, guid: 297208e289c61244eb4279a695029f3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Libro1
+    second: {fileID: 2100000, guid: 5df39b2c0c0b13f4a9ad8c4ded1cccda, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Libro1.001
+    second: {fileID: 2100000, guid: 9877c83cc5922e84db6441922ebfe8bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Libro1.002
+    second: {fileID: 2100000, guid: d061062584ca3f6418df19f467db68d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Libro1.003
+    second: {fileID: 2100000, guid: c64bd5e7d8ee36e458b96ca3dc60ec2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mas cosas cocina
+    second: {fileID: 2100000, guid: 16bdea4a1ebb2654ea595400884e7403, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mas cosas cocina.001
+    second: {fileID: 2100000, guid: 7192eb9686beda94a823461af5133fa5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: acec637e03d576146a156cd9578a87b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mesa COcina
+    second: {fileID: 2100000, guid: 171f7c0b839d3d04e8fc37b31194f084, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mesa cocina
+    second: {fileID: 2100000, guid: 8649dd285bde7294b8d56b4cb318c34d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mueble cocina
+    second: {fileID: 2100000, guid: 018c04c4b77d7d042828a06b6bb5235e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nevera
+    second: {fileID: 2100000, guid: af3ff094763f24c4197646832080449c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ollas cocina
+    second: {fileID: 2100000, guid: 6f5bcdc4e4c5daa4a9fcc9780412e49f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Paredes
+    second: {fileID: 2100000, guid: 86d0d6f2f5635104dba4c8dd7c09465c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Persianas
+    second: {fileID: 2100000, guid: ebebf9fc6cdaff34790ccdd6b7154522, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Planta
+    second: {fileID: 2100000, guid: 450b30bdf513c3e4b84b0dfc9ac764d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reflectantes
+    second: {fileID: 2100000, guid: e0dd13a8e72be674c8937a2d4af2386f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reflectantes.001
+    second: {fileID: 2100000, guid: 73d370b69758e69468a2b00bfcdb3b80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Relog
+    second: {fileID: 2100000, guid: 5e8dcdf953164c540bd4f2b17d9744eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sofa
+    second: {fileID: 2100000, guid: d87008675a228af4d98bcadb0f478ed7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Suelo
+    second: {fileID: 2100000, guid: b19477c785d9b8c449d62ab490c19be5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tele
+    second: {fileID: 2100000, guid: 94968961068ce3c4eb6bdf190dac3869, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Utencilios cocina
+    second: {fileID: 2100000, guid: 4910eb67e5847674d8b50c9d9ed7c973, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vater
+    second: {fileID: 2100000, guid: d21a0583bb2bab34dafe95e68b905492, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ventana
+    second: {fileID: 2100000, guid: 82008d95e11bebc4a8afa93c1371495a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ventana.001
+    second: {fileID: 2100000, guid: 287ca68c83ab9c54b8ccd1919c8684af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ventilador.001
+    second: {fileID: 2100000, guid: 17d53d80deb4b28429f4af06979c57cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cat
+    second: {fileID: 2100000, guid: 13d2219e329ce8a4b835a58e50aaea33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cocina armario
+    second: {fileID: 2100000, guid: 797022ebdc4645d48b3d36c712d4e69e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cubo.001
+    second: {fileID: 2100000, guid: 8e72a2bd73e20334d80ad50e424bd7c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: extractor
+    second: {fileID: 2100000, guid: c656edea44514ac449cb998e0b50798c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lAMPARA
+    second: {fileID: 2100000, guid: 2edf087cd157896418e50440f2c2a968, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lavamanos
+    second: {fileID: 2100000, guid: f4034f630bfe86d4997f93d34530c127, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "na\xF1era"
+    second: {fileID: 2100000, guid: d44fc4ee3b97bd440b8dff4c7770e4f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: puerta_
+    second: {fileID: 2100000, guid: daa871b8b9cd7ce48baf284eb1cd6bdb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: relog
+    second: {fileID: 2100000, guid: 45ba150e7eda41c42a1599781a9f5d67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: techo
+    second: {fileID: 2100000, guid: 6c6e49e64102d1944a07349af40f96ed, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
