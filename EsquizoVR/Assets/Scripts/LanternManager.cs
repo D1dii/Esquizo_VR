@@ -37,8 +37,9 @@ public class LanternManager : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         lanternAnchor = new GameObject("LanternAnchor").transform;
-        lanternAnchor.SetParent(cameraTransform);
-        lanternAnchor.localPosition = new Vector3(-0.2f, -0.3f, 0.2f);
+        lanternAnchor.SetParent(null); // No usar como hijo de cámara
+
+        // Solo usaremos posición de cámara y dirección horizontal (yaw)
         lanternAnchor.localRotation = Quaternion.identity;
     }
 
@@ -68,12 +69,21 @@ public class LanternManager : MonoBehaviour
 
     private void FollowCharacterNotGrabbed()
     {
-        if (lanternAnchor == null || rb == null) return;
+        if (rb == null || cameraTransform == null) return;
 
         if (!rb.isKinematic) rb.isKinematic = true;
 
+        // Mantener posición relativa al jugador
+        Vector3 offset = new Vector3(-0.2f, -0.3f, 0.2f);
+        Vector3 forwardYaw = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0) * offset;
+
+        lanternAnchor.position = cameraTransform.position + forwardYaw;
+
         transform.position = lanternAnchor.position;
-        transform.rotation = lanternAnchor.rotation;
+
+        // Mantener solo rotación horizontal (yaw)
+        Quaternion yawRotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
+        transform.rotation = yawRotation;
     }
 
     private void OnSelectExited(SelectExitEventArgs args)
@@ -83,7 +93,6 @@ public class LanternManager : MonoBehaviour
 
     private void Update()
     {
-
         if (SelectFinalShotsManager.instance.selectingFinalShots == true) { return; }
 
         if (!isHeldByLeftHand)
