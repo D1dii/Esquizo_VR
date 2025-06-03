@@ -12938,6 +12938,16 @@ MonoBehaviour:
     anomalyCount: 4
   - level: 4
     anomalyCount: 5
+  - level: 5
+    anomalyCount: 6
+  - level: 6
+    anomalyCount: 7
+  - level: 7
+    anomalyCount: 8
+  - level: 8
+    anomalyCount: 9
+  - level: 9
+    anomalyCount: 9
   anomaliesAndModelList:
   - anomalyId: Clock
     modelPrefab: {fileID: 7888785764312762494}
