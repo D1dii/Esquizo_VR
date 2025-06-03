@@ -12624,16 +12624,12 @@ MonoBehaviour:
   anomaliesAndModelList:
   - anomalyId: Clock
     modelPrefab: {fileID: 7888785764312762494}
-  - anomalyId: Fridge
-    modelPrefab: {fileID: 0}
   - anomalyId: Hanger
     modelPrefab: {fileID: 274523016}
   - anomalyId: Fan
     modelPrefab: {fileID: 4671200438835581704}
   - anomalyId: Mirror
     modelPrefab: {fileID: 50754955240165305}
-  - anomalyId: Box
-    modelPrefab: {fileID: 0}
   - anomalyId: Chairs
     modelPrefab: {fileID: 0}
   - anomalyId: Empty
@@ -15556,7 +15552,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020958841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 24.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
