@@ -525,6 +525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cylinder
       objectReference: {fileID: 0}
+    - target: {fileID: 7202271454713460447, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aa1a74258fa44a046aba3d69a83e5ac5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8391222552659086748, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}

@@ -3998,6 +3998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport Anchor
       objectReference: {fileID: 0}
+    - target: {fileID: 8134302614855669005, guid: c4a645c929982ea41a52b5037ee7d94d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8134302614855669011, guid: c4a645c929982ea41a52b5037ee7d94d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -8187,45 +8191,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1812429336288399441, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3935000397326135495, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5125604021613259932, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_UseSpring
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5142914179770003588, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
       propertyPath: m_Name
       value: NewDoorPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142914179770003588, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142914179770003588, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7764689514856029793, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7909250258065417165, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 15.481588
-      objectReference: {fileID: 0}
-    - target: {fileID: 7909250258065417165, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 15.481588
-      objectReference: {fileID: 0}
-    - target: {fileID: 7909250258065417165, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 15.481588
       objectReference: {fileID: 0}
     - target: {fileID: 7909250258065417165, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8265,10 +8233,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7909250258065417165, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8353251220301172073, guid: 29e4cbe3db7f2124baa831b95855c133, type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
