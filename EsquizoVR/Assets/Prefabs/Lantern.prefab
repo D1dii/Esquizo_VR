@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4322536201151447970}
   - component: {fileID: 2546504488497677341}
   - component: {fileID: 4731935969988466229}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 7059874468568300935}
   - component: {fileID: 2875765168548913272}
   - component: {fileID: 3721162643931681681}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,12 +393,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3aadbfda633a44db85f4205f44c39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashlight: {fileID: 2546504488497677341}
+  flashlight: {fileID: 2029499298019597340}
   leftHandInteractor: {fileID: 0}
   playerTransform: {fileID: 0}
   followDistance: 1.5
   followSmoothness: 5
-  linterna: {fileID: 3721162643931681681}
+  toggleActionLeft: {fileID: 6728344294928542788, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!114 &2875765168548913272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +567,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7611661634702333960, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -3540272279435206582, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: -2577548232221058511, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.1594806
@@ -619,9 +631,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: -1738098815321292321, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
       propertyPath: m_Name
       value: Cylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 984288346049153740, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2890160469646005028, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7202271454713460447, guid: 157b3230e8f914c4f8d433964091a7e3, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -1,7 +1,8 @@
+// File: LanternManager.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -9,27 +10,21 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class LanternManager : MonoBehaviour
 {
     [Header("Flashlight Settings")]
-    public Light flashlight;
+    public GameObject flashlight;
     public XRBaseInteractor leftHandInteractor;
     public Transform playerTransform;
 
-    [SerializeField]
-    private float followDistance = 1.5f;
-
-    [SerializeField]
-    private float followSmoothness = 5f;
+    [SerializeField] private float followDistance = 1.5f;
+    [SerializeField] private float followSmoothness = 5f;
+    [SerializeField] private InputActionReference toggleActionLeft;
 
     private XRGrabInteractable grabInteractable;
-    private bool isOn = false;
+    private bool isOn = true;
     private bool isHeldByLeftHand = false;
-    private InputDevice leftHandDevice;
-    private bool buttonPressedLastFrame = false;
-    private bool buttonpress = false;
 
     private Transform cameraTransform;
     private Rigidbody rb;
     private Transform lanternAnchor;
-    [SerializeField] private AudioSource linterna;
 
     private void Awake()
     {
@@ -38,10 +33,11 @@ public class LanternManager : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         lanternAnchor = new GameObject("LanternAnchor").transform;
-        lanternAnchor.SetParent(null); // No usar como hijo de cámara
-
-        // Solo usaremos posición de cámara y dirección horizontal (yaw)
+        lanternAnchor.SetParent(null);
         lanternAnchor.localRotation = Quaternion.identity;
+
+        toggleActionLeft.action.Enable();
+        toggleActionLeft.action.performed += ctx => TryToggleFlashlight();
     }
 
     private void OnEnable()
@@ -54,18 +50,45 @@ public class LanternManager : MonoBehaviour
     {
         grabInteractable.selectEntered.RemoveListener(OnSelectEntered);
         grabInteractable.selectExited.RemoveListener(OnSelectExited);
+
+        toggleActionLeft.action.performed -= ctx => TryToggleFlashlight();
+        toggleActionLeft.action.Disable();
     }
 
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
         isHeldByLeftHand = args.interactorObject.transform == leftHandInteractor.transform;
-        if (isHeldByLeftHand)
+        if (isHeldByLeftHand && rb != null)
         {
-            InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.primaryButton, out _);
-            leftHandDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-
-            if (rb != null) rb.isKinematic = false;
+            rb.isKinematic = false;
         }
+    }
+
+    private void OnSelectExited(SelectExitEventArgs args)
+    {
+        isHeldByLeftHand = false;
+    }
+
+    private void TryToggleFlashlight()
+    {
+        if (!SelectFinalShotsManager.instance.selectingFinalShots)
+        {
+            ToggleFlashlight();
+        }
+    }
+
+    private void ToggleFlashlight()
+    {
+        isOn = !isOn;
+        flashlight.SetActive(isOn);
+    }
+
+    private void Update()
+    {
+        if (SelectFinalShotsManager.instance.selectingFinalShots) return;
+
+        if (!isHeldByLeftHand)
+            FollowCharacterNotGrabbed();
     }
 
     private void FollowCharacterNotGrabbed()
@@ -74,45 +97,13 @@ public class LanternManager : MonoBehaviour
 
         if (!rb.isKinematic) rb.isKinematic = true;
 
-        // Mantener posición relativa al jugador
         Vector3 offset = new Vector3(-0.2f, -0.3f, 0.2f);
         Vector3 forwardYaw = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0) * offset;
 
         lanternAnchor.position = cameraTransform.position + forwardYaw;
-
         transform.position = lanternAnchor.position;
 
-        // Mantener solo rotación horizontal (yaw)
         Quaternion yawRotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
         transform.rotation = yawRotation;
-    }
-
-    private void OnSelectExited(SelectExitEventArgs args)
-    {
-        isHeldByLeftHand = false;
-    }
-
-    private void Update()
-    {
-        if (SelectFinalShotsManager.instance.selectingFinalShots == true) { return; }
-
-        if (!isHeldByLeftHand)
-            FollowCharacterNotGrabbed();
-
-        if (leftHandDevice.isValid &&
-            leftHandDevice.TryGetFeatureValue(CommonUsages.primaryButton, out buttonpress) &&
-            buttonpress && !buttonPressedLastFrame)
-        {
-            ToggleFlashlight();
-        }
-
-        buttonPressedLastFrame = buttonpress;
-    }
-
-    private void ToggleFlashlight()
-    {
-        isOn = !isOn;
-        flashlight.enabled = isOn;
-        linterna.Play();
     }
 }
