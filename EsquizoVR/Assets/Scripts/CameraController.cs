@@ -81,7 +81,7 @@ public class CameraController : MonoBehaviour
         if (!rb.isKinematic) rb.isKinematic = true;
 
         // Mantener posición relativa
-        Vector3 offset = new Vector3(0.2f, -0.3f, 0.4f);
+        Vector3 offset = new Vector3(0.2f, -0.35f, 0.25f);
         Vector3 forwardYaw = Quaternion.Euler(0, playerTransform.eulerAngles.y, 0) * offset;
 
         cameraAnchor.position = playerTransform.position + forwardYaw;
@@ -144,7 +144,7 @@ public class CameraController : MonoBehaviour
             // Configurar el SpriteRenderer
             cameraShot.GetComponent<SpriteRenderer>().sortingOrder = 1;
             cameraShot.transform.SetParent(notebookController.transform, false);
-            cameraShot.transform.localScale = new Vector3(0.0175f, 0.0175f, 0.0175f);
+            cameraShot.transform.localScale = new Vector3(0.00125f, 0.00125f, 0.00125f);
 
             cameraShot.GetComponent<PhotoController>().hasAnomaly = HasShotAnAnomaly();
 

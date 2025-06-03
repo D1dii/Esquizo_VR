@@ -28,6 +28,8 @@ public class NotebookController : MonoBehaviour
     private Rigidbody rb;
     private Transform notebookAnchor;
 
+    public Animator notebookAnimator;
+
     public void Awake()
     {
         openNotebook.action.Enable();
@@ -49,7 +51,7 @@ public class NotebookController : MonoBehaviour
 
         notebookAnchor = new GameObject("NoteBookAnchor").transform;
         notebookAnchor.SetParent(null);
-        notebookAnchor.localRotation = Quaternion.identity;
+        notebookAnchor.localRotation = Quaternion.Euler(-90, 0, 0);
     }
 
     public void OnDestroy()
@@ -72,6 +74,7 @@ public class NotebookController : MonoBehaviour
     public void Start()
     {
         interactable = GetComponent<XRGrabInteractable>();
+        notebookAnimator = GetComponent<Animator>();
     }
 
     public void Update()
@@ -105,7 +108,7 @@ public class NotebookController : MonoBehaviour
         if (!rb.isKinematic) rb.isKinematic = true;
 
         // Posición frente al jugador solo con yaw
-        Vector3 offset = new Vector3(-0.2f, -0.3f, 0.6f);
+        Vector3 offset = new Vector3(-0.2f, -0.5f, 0.3f);
         Quaternion yawOnly = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
         Vector3 targetPosition = cameraTransform.position + yawOnly * offset;
 
@@ -126,6 +129,14 @@ public class NotebookController : MonoBehaviour
             }
             else
             {
+                if (notebookAnimator != null)
+                {
+                    notebookAnimator.SetTrigger("IsOpening");
+                }
+                else
+                {
+                    Debug.LogWarning("Notebook Animator is not assigned.");
+                }
                 isNotebookOpen = true;
                 currentPage = 0;
                 ArrangeCameraShotsInGrid();
@@ -136,6 +147,14 @@ public class NotebookController : MonoBehaviour
 
     public void CloseNotebook()
     {
+        if (notebookAnimator != null)
+        {
+            notebookAnimator.SetTrigger("IsClosing");
+        }
+        else
+        {
+            Debug.LogWarning("Notebook Animator is not assigned.");
+        }
         isNotebookOpen = false;
         Debug.Log("Notebook closed");
     }

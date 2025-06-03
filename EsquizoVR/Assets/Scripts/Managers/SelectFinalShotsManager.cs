@@ -119,7 +119,7 @@ public class SelectFinalShotsManager : MonoBehaviour
         {
             GameObject photo = notebookController.cameraShots[i];
             photo.SetActive(false);
-            photo.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            photo.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         }
 
         int startIdx = notebookController.currentPage * photosPerPage;

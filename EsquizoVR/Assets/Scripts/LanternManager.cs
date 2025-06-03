@@ -97,7 +97,7 @@ public class LanternManager : MonoBehaviour
 
         if (!rb.isKinematic) rb.isKinematic = true;
 
-        Vector3 offset = new Vector3(-0.2f, -0.3f, 0.2f);
+        Vector3 offset = new Vector3(-0.2f, -0.4f, 0.2f);
         Vector3 forwardYaw = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0) * offset;
 
         lanternAnchor.position = cameraTransform.position + forwardYaw;
