@@ -51,6 +51,8 @@ public class PhotoController : MonoBehaviour
 
     private void OnHoverEnter()
     {
+        if (!SelectFinalShotsManager.instance.selectingFinalShots)
+            return;
         isHovering = true;
         lastHoverTime = Time.time;
         if (!isSelected)

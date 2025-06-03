@@ -87,6 +87,10 @@ public class NotebookController : MonoBehaviour
             FollowCharacterNotGrabbed();
             isNotebookOpen = false;
         }
+        else if (interactable.isSelected)
+        {
+            interactable.trackRotation = false; // Desactivar el seguimiento de rotación al abrir el notebook
+        }
 
         if (isNotebookOpen)
         {
@@ -109,7 +113,7 @@ public class NotebookController : MonoBehaviour
 
         // Posición frente al jugador solo con yaw
         Vector3 offset = new Vector3(-0.2f, -0.5f, 0.3f);
-        Quaternion yawOnly = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
+        Quaternion yawOnly = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
         Vector3 targetPosition = cameraTransform.position + yawOnly * offset;
 
         notebookAnchor.position = targetPosition;
@@ -117,6 +121,7 @@ public class NotebookController : MonoBehaviour
 
         // Aplicar solo rotación horizontal
         transform.rotation = yawOnly;
+        transform.rotation *= Quaternion.Euler(-90, 0, 0); // Ajustar rotación para que esté horizontal
     }
 
     public void OpenNotebook()
@@ -182,8 +187,8 @@ public class NotebookController : MonoBehaviour
     {
         int columns = 3;
         float spacing = 0.1f;
-        Vector3 startPosition = transform.position + new Vector3(-0.1f, 0.1f, 0.1f);
-        Quaternion extraRotation = Quaternion.Euler(90, 0, 0);
+        Vector3 startPosition = transform.position + new Vector3(-0.1f, 0.05f, 0.1f);
+        Quaternion extraRotation = Quaternion.Euler(0, 0, 0);
 
 
         // Hide all photos first
