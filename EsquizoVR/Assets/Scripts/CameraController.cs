@@ -77,8 +77,17 @@ public class CameraController : MonoBehaviour
 
         if (!rb.isKinematic) rb.isKinematic = true;
 
+        // Mantener posición relativa
+        Vector3 offset = new Vector3(0.2f, -0.3f, 0.4f);
+        Vector3 forwardYaw = Quaternion.Euler(0, playerTransform.eulerAngles.y, 0) * offset;
+
+        cameraAnchor.position = playerTransform.position + forwardYaw;
+
         transform.position = cameraAnchor.position;
-        transform.rotation = cameraAnchor.rotation;
+
+        // Solo rotación horizontal (yaw)
+        Quaternion yawRotation = Quaternion.Euler(0f, playerTransform.eulerAngles.y, 0f);
+        transform.rotation = yawRotation;
     }
 
     public static string ScreenShotName(int width, int height)
