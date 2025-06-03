@@ -1,62 +1,104 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
+[RequireComponent(typeof(XRSimpleInteractable))]
 public class PhotoController : MonoBehaviour
 {
     public bool hasAnomaly = false;
-    public XRSimpleInteractable interactable;
-
-    public InputActionReference selectPhotoAction;
+    private InputAction selectPhotoAction;
 
     public bool isSelected = false;
 
-    public bool isBeingSelected = false;
+    private Vector3 originalScale;
+    private Quaternion fixedRotation;
+    private XRSimpleInteractable interactable;
+
+    private bool isHovering = false;
+    private float lastHoverTime;
+    private float hoverTimeout = 0.5f;
+
+    public void Initialize(InputActionReference inputRef)
+    {
+        selectPhotoAction = inputRef.action;
+        selectPhotoAction.Enable();
+        selectPhotoAction.performed += OnSelectPerformed;
+    }
 
     private void Awake()
     {
-        selectPhotoAction.action.Enable();
-        selectPhotoAction.action.performed += ctx => SelectPhoto();
-    }
+        originalScale = transform.localScale;
+        fixedRotation = Quaternion.Euler(90, 0, 90);
 
-    // Start is called before the first frame update
-    void Start()
-    {
         interactable = GetComponent<XRSimpleInteractable>();
+        interactable.selectMode = InteractableSelectMode.Multiple;
+
+        interactable.hoverEntered.AddListener(ctx => OnHoverEnter());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
+    {
+        if (selectPhotoAction != null)
+        {
+            selectPhotoAction.performed -= OnSelectPerformed;
+            selectPhotoAction.Disable();
+        }
+
+        interactable.hoverEntered.RemoveAllListeners();
+    }
+
+    private void OnHoverEnter()
+    {
+        isHovering = true;
+        lastHoverTime = Time.time;
+        if (!isSelected)
+        {
+            transform.DOScale(originalScale * 6.1f, 0.2f);
+        }
+        CancelInvoke(nameof(DisableHover));
+        Invoke(nameof(DisableHover), hoverTimeout);
+    }
+
+    private void DisableHover()
+    {
+        if (!isSelected)
+        {
+            isHovering = false;
+            transform.DOScale(originalScale, 0.2f);
+        }
+    }
+
+    private void OnSelectPerformed(InputAction.CallbackContext context)
+    {
+        if (!SelectFinalShotsManager.instance.selectingFinalShots)
+            return;
+
+        if (!isHovering)
+            return;
+
+        if (isSelected || SelectFinalShotsManager.instance.currentSelections >= SelectFinalShotsManager.instance.maxSelections)
+            return;
+
+        isSelected = true;
+        SelectFinalShotsManager.instance.currentSelections++;
+        transform.DOScale(originalScale * 1.15f, 0.2f);
+        Debug.Log("Photo selected: " + gameObject.name);
+    }
+
+    private void LateUpdate()
     {
         if (SelectFinalShotsManager.instance.selectingFinalShots)
         {
-            if (interactable.isSelected && SelectFinalShotsManager.instance.currentSelections < SelectFinalShotsManager.instance.maxSelections)
-            {
-                selectPhotoAction.action.Enable();
-            }
-            
-        }
-        else
-        {
-            selectPhotoAction.action.Disable();
+            transform.rotation = fixedRotation;
         }
     }
 
-    private void SelectPhoto()
+    public void ResetPhoto()
     {
-        
-        isSelected = !isSelected;
-        if (isSelected)
-        {
-            SelectFinalShotsManager.instance.currentSelections++;
-            Debug.Log("Photo selected: " + gameObject.name);
-        }
-        else
-        {
-            SelectFinalShotsManager.instance.currentSelections--;
-            Debug.Log("Photo deselected: " + gameObject.name);
-        }
+        isSelected = false;
+        transform.localScale = originalScale;
+        transform.rotation = fixedRotation;
     }
 }
