@@ -77,6 +77,12 @@ public class LevelManager : MonoBehaviour
         notebookController.DeletePhotos(); // Clear previous photos
         StartLevel();
     } 
+
+    public void RestartLevel()
+    {
+        notebookController.DeletePhotos(); // Clear previous photos
+        StartLevel();
+    }
 }
 
 
