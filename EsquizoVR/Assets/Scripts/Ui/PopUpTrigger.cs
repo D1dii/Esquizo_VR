@@ -35,7 +35,6 @@ public class PopUpTrigger : MonoBehaviour
             case PopupType.SelectionShots:
                 UiController.Instance.ShowPopup("SelectionShots", "To progress through the game, select the shots where you believe an anomaly is present. If you're correct, you’ll advance to the next level. Otherwise, you’ll repeat this level with different anomalies.", true);
                 break;
-          
         }
         hasSpawned = true;
     }
