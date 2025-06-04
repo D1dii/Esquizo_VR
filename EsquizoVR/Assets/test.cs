@@ -17,11 +17,11 @@ public class test : MonoBehaviour
     void Update()
     {
         frameCount++;
-        if (!haschanged && frameCount == 10)
-        {
-            characterController.center = new Vector3(0, 0.5f, 0);
-            characterController.height = 1.0f;
+        //if (!haschanged && frameCount == 10)
+        //{
+            characterController.center = new Vector3(0, 0.25f, 0);
+            characterController.height = 0.5f;
             haschanged = true;
-        }
+        ///}
     }
 }

@@ -40,7 +40,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029499298019597340}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
@@ -51,7 +51,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -398,7 +398,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   followDistance: 1.5
   followSmoothness: 5
-  toggleActionLeft: {fileID: 6728344294928542788, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  toggleActionLeft: {fileID: 3253434738044612790, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!114 &2875765168548913272
 MonoBehaviour:
   m_ObjectHideFlags: 0
