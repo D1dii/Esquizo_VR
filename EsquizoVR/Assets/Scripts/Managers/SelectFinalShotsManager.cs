@@ -113,7 +113,7 @@ public class SelectFinalShotsManager : MonoBehaviour
         float spacing = 0.25f;
         float rowSpacing = 0.25f;
         Vector3 deskPosition = escritorio.transform.position;
-        Vector3 startPosition = deskPosition + new Vector3(-0.1f, 0.2f, -0.1f);
+        Vector3 startPosition = deskPosition + new Vector3(-0.1f, 0.5f, -0.1f);
 
         for (int i = 0; i < notebookController.cameraShots.Count; i++)
         {

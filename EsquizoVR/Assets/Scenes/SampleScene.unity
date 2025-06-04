@@ -61589,6 +61589,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4956235808286302687, guid: 306aeaf4dc03dfb4eb22b4cbf51128b5, type: 3}
+      propertyPath: fadeToBlackImage
+      value: 
+      objectReference: {fileID: 2132686107}
+    - target: {fileID: 4956235808286302687, guid: 306aeaf4dc03dfb4eb22b4cbf51128b5, type: 3}
+      propertyPath: notebookController
+      value: 
+      objectReference: {fileID: 2142907329}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

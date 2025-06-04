@@ -7,7 +7,7 @@ public class FinalRoomManger : MonoBehaviour
 {
     public NotebookController notebook;
     public LevelManager level;
-    public Animator doorAnimator;
+    
 
 
     private Collider finalRoomCollider;
@@ -33,7 +33,7 @@ public class FinalRoomManger : MonoBehaviour
     {
         finalRoomCollider.enabled = true;
         doorOpened = true;
-        doorAnimator.SetTrigger("Open");
+        
         Debug.Log("Final door is opening!");
     }
 
@@ -47,7 +47,7 @@ public class FinalRoomManger : MonoBehaviour
             //level.PassLevel();
             //SceneManager.LoadScene("SampleScene");
             Debug.Log("Player has entered the final room!");
-            doorAnimator.SetTrigger("Close");
+            
 
             playerInFinalRoom = true;
         }

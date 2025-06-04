@@ -57,7 +57,7 @@ public class PhotoController : MonoBehaviour
         lastHoverTime = Time.time;
         if (!isSelected)
         {
-            transform.DOScale(originalScale * 6.1f, 0.2f);
+            transform.DOScale(originalScale * 2f, 0.2f);
         }
         CancelInvoke(nameof(DisableHover));
         Invoke(nameof(DisableHover), hoverTimeout);
